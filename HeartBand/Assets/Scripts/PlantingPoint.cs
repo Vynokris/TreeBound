@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlantingPoint : MonoBehaviour
+{
+    [SerializeField] private GameObject plantingSlatePrefab;
+    private List<PlantingSlate> slates = new();
+
+    public void UpdateSlateCount(int playerCount)
+    {
+        if (slates.Count == playerCount) return;
+        
+        // Delete the previous slates.
+        slates.ForEach(slate => Destroy(slate.gameObject));
+        slates.Clear();
+        slates.Capacity = playerCount;
+        
+        // Create new equally spaces slates.
+        float slateUnitAngle = (Mathf.PI*2) / playerCount;
+        float slateAngleOffset = 0;
+        switch (playerCount)
+        {
+            case 1: slateAngleOffset = -Mathf.PI*0.50f; break;
+            case 3: slateAngleOffset = -Mathf.PI*0.33f; break;
+            case 4: slateAngleOffset = -Mathf.PI*0.25f; break;
+        }
+        for (int i = 0; i < playerCount; i++)
+        {
+            GameObject slate = Instantiate(plantingSlatePrefab, transform);
+            float slatePosAngle = slateUnitAngle * i + slateAngleOffset;
+            float slatePosX = Mathf.Cos(slatePosAngle);
+            float slatePosY = Mathf.Sin(slatePosAngle);
+            slate.transform.position = transform.position + new Vector3(slatePosX, slatePosY, 0) * 2;
+            slates.Add(slate.GetComponent<PlantingSlate>());
+        }
+    }
+
+    public bool IsActivated()
+    {
+        foreach (PlantingSlate slate in slates) {
+            if (!slate.IsActivated()) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
