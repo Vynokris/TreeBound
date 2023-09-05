@@ -4,12 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-enum PlayerState
-{
-    Defending,
-    Attacking,
-}
-
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 2;
@@ -17,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float respawnTime   = 5;
     [SerializeField] private float shieldDist    = 1.2f;
 
-    private PlayerState state = PlayerState.Defending;
     private int     health       = -1;
     private float   respawnTimer = -1;
     private Vector2 moveDir;
@@ -44,7 +37,7 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = moveDir * (movementSpeed * Time.deltaTime);
             transform.position += new Vector3(movement.x, movement.y, 0);
 
-            if (state == PlayerState.Defending)
+            if (tree.GetState() == TreeState.Moving)
             {
                 // Move shield in front of the player.
                 shield.transform.localPosition = lookDir * shieldDist;
@@ -78,14 +71,14 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateState(TreeState treeState)
     {
-        state = treeState == TreeState.Moving ? PlayerState.Defending : PlayerState.Attacking;
-        switch (state)
+        switch (treeState)
         {
-        case PlayerState.Attacking:
-            shield.gameObject.SetActive(false);
-            break;
-        case PlayerState.Defending:
+        case TreeState.Moving:
             shield.gameObject.SetActive(true);
+            break;
+        case TreeState.Planted:
+        case TreeState.Waiting:
+            shield.gameObject.SetActive(false);
             break;
         }
     }
@@ -111,8 +104,12 @@ public class PlayerController : MonoBehaviour
     {
         bool interacting = input.Get<float>() != 0;
         if (!slate) return;
-        if (interacting) slate.Activate  (gameObject);
-        else             slate.Deactivate(gameObject);
+        if (interacting) {
+            slate.Activate(gameObject);
+        }
+        else if (tree.GetState() != TreeState.Planted) {
+            slate.Deactivate();
+        }
     }
 
     public void OnDamage(int value) { health -= value; }

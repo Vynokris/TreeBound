@@ -168,8 +168,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6666310325308612775}
   - component: {fileID: 8683718753965023268}
-  - component: {fileID: 6894136971318972615}
   - component: {fileID: 6178523189669308221}
+  - component: {fileID: 6894136971318972615}
   - component: {fileID: 1596824272399539599}
   - component: {fileID: 3791757014732998347}
   m_Layer: 0
@@ -247,6 +247,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6178523189669308221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484637580269120169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6de5f4341f9054d9704709ad3a96e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2
+  maxHealth: 3
+  respawnTime: 5
+  shieldDist: 1.2
 --- !u!114 &6894136971318972615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,22 +381,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6178523189669308221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6484637580269120169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6de5f4341f9054d9704709ad3a96e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 2
-  maxHealth: 3
-  respawnTime: 5
-  shieldDist: 1.2
 --- !u!70 &1596824272399539599
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

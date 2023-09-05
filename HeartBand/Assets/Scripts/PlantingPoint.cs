@@ -45,4 +45,9 @@ public class PlantingPoint : MonoBehaviour
         }
         return true;
     }
+
+    public void DeactivateSlates()
+    {
+        slates.ForEach(slate => slate.Deactivate());
+    }
 }

@@ -19,9 +19,8 @@ public class PlantingSlate : MonoBehaviour
         renderer.color = interactingPlayer.GetComponent<PlayerController>().GetColor();
     }
 
-    public void Deactivate(GameObject player)
+    public void Deactivate()
     {
-        if (interactingPlayer != player) return;
         renderer.color = Color.grey;
         interactingPlayer = null;
     }

@@ -23,15 +23,18 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float evolveTime    = 30;
     
     private new SpriteRenderer renderer;
-    private TreeState state   = TreeState.Moving;
-    private float health      = -1;
-    private float evolveTimer = -1;
+    private TreeState state    = TreeState.Waiting;
+    private int   growingStage = 0;
+    private float health       = -1;
+    private float evolveTimer  = -1;
     private PlantingPoint plantingPoint = null;
+    private WaveManager   waveManager;
     
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        health = maxHealth;
+        renderer    = GetComponent<SpriteRenderer>();
+        waveManager = FindObjectOfType<WaveManager>();
+        health      = maxHealth;
     }
 
     void Update()
@@ -55,7 +58,7 @@ public class TreeController : MonoBehaviour
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
-        if (decay) health -= decaySpeed * Time.deltaTime;
+        if (decay && growingStage > 0) health -= decaySpeed * Time.deltaTime;
         if (health < 0) {
             Debug.Log("Tree destroyed!");
             Destroy(gameObject);
@@ -69,6 +72,8 @@ public class TreeController : MonoBehaviour
         {
             state = TreeState.Planted;
             players.ForEach(player => player.UpdateState(state));
+            waveManager.EndWave();
+            waveManager.StartWave(WaveType.Enemies);
             evolveTimer = evolveTime;
             renderer.color = Color.magenta;
         }
@@ -100,7 +105,10 @@ public class TreeController : MonoBehaviour
         evolveTimer -= Time.deltaTime;
         if (evolveTimer <= 0)
         {
+            growingStage++;
             state = TreeState.Waiting;
+            plantingPoint.DeactivateSlates();
+            waveManager.EndWave();
             evolveTimer = -1;
             health = maxHealth;
             renderer.color = Color.red;
@@ -113,6 +121,7 @@ public class TreeController : MonoBehaviour
         if (plantingPoint && plantingPoint.IsActivated()) {
             state = TreeState.Moving;
             players.ForEach(player => player.UpdateState(state));
+            waveManager.StartWave(WaveType.Projectiles);
             plantingPoint.gameObject.SetActive(false);
             plantingPoint = null;
             renderer.color = Color.green;
