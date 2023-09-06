@@ -3,30 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 2;
-    [SerializeField] private int   maxHealth     = 3;
-    [SerializeField] private float respawnTime   = 5;
-    [SerializeField] private float shieldDist    = 1.2f;
+    [SerializeField] private float movementSpeed  = 2;
+    [SerializeField] private int   maxHealth      = 3;
+    [SerializeField] private int   attackDamage   = 1;
+    [SerializeField] private float attackDuration = 0.5f;
+    [SerializeField] private float respawnTime    = 5;
+    [SerializeField] private float equipmentDist  = 1.2f;
+    [SerializeField] private AnimationCurve swordMovementCurve;
 
     private int     health       = -1;
-    private float   respawnTimer = -1;
+    private float   attackTimer  = 0;
+    private float   respawnTimer = 0;
     private Vector2 moveDir;
     private Vector2 lookDir;
     
     private new SpriteRenderer renderer;
-    private GameObject     shield;
-    private TreeController tree;
-    private PlantingSlate  slate = null;
+    private GameObject         shield;
+    private GameObject         sword;
+    private PolygonCollider2D  swordCollider;
+    private TreeController     tree;
+    private PlantingSlate      slate = null;
     
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        shield   = transform.GetChild(0).gameObject;
-        tree     = FindObjectOfType<TreeController>();
-        health   = maxHealth;
+        renderer      = GetComponent<SpriteRenderer>();
+        shield        = transform.GetChild(0).gameObject;
+        sword         = transform.GetChild(1).gameObject;
+        swordCollider = sword.GetComponent<PolygonCollider2D>();
+        tree          = FindObjectOfType<TreeController>();
+        health        = maxHealth;
+        
+        shield.SetActive(false);
+        sword .SetActive(false);
+        swordCollider.enabled = false;
     }
 
     void Update()
@@ -37,11 +50,18 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = moveDir * (movementSpeed * Time.deltaTime);
             transform.position += new Vector3(movement.x, movement.y, 0);
 
-            if (tree.GetState() == TreeState.Moving)
+            switch (tree.GetState())
             {
+            case TreeState.Moving:
                 // Move shield in front of the player.
-                shield.transform.localPosition = lookDir * shieldDist;
+                shield.transform.localPosition = lookDir * equipmentDist;
                 shield.transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.down, lookDir));
+                break;
+            case TreeState.Planted:
+                // Move sword in front of the player.
+                sword.transform.localPosition = lookDir * (equipmentDist + swordMovementCurve.Evaluate(attackTimer / attackDuration));
+                sword.transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.up, lookDir));
+                break;
             }
         }
         else
@@ -58,11 +78,22 @@ public class PlayerController : MonoBehaviour
                 respawnTimer -= Time.deltaTime;
                 if (respawnTimer <= 0)
                 {
-                    respawnTimer = -1;
+                    respawnTimer = 0;
                     health = maxHealth;
                     renderer.enabled = true;
                     transform.position = tree.transform.position;
                 }
+            }
+        }
+        
+        // Update the attack timer.
+        if (attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0)
+            {
+                swordCollider.enabled = false;
+                attackTimer = 0;
             }
         }
     }
@@ -74,11 +105,16 @@ public class PlayerController : MonoBehaviour
         switch (treeState)
         {
         case TreeState.Moving:
-            shield.gameObject.SetActive(true);
+            shield.SetActive(true);
+            sword .SetActive(false);
             break;
         case TreeState.Planted:
+            shield.SetActive(false);
+            sword .SetActive(true);
+            break;
         case TreeState.Waiting:
-            shield.gameObject.SetActive(false);
+            shield.SetActive(false);
+            sword .SetActive(false);
             break;
         }
     }
@@ -97,7 +133,9 @@ public class PlayerController : MonoBehaviour
     
     public void OnAttack(InputValue input)
     {
-        bool temp = input.Get<float>() != 0;
+        if (!sword.activeSelf) return;
+        attackTimer = attackDuration;
+        swordCollider.enabled = true;
     }
 
     public void OnInteract(InputValue input)

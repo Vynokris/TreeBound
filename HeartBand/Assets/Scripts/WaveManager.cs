@@ -35,8 +35,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<WaveList> enemyWaves      = new(4);
     [SerializeField] private List<WaveList> projectileWaves = new(3);
     
-    private List<EnemyController>      enemies;
-    private List<ProjectileController> projectiles;
+    private List<EnemyController>      enemies     = new();
+    private List<ProjectileController> projectiles = new();
     
     private WaveType currentWaveType = WaveType.None;
     private int      currentWaveIdx  = 0;
@@ -49,27 +49,28 @@ public class WaveManager : MonoBehaviour
         if (currentWaveType == WaveType.None) return;
         List<WaveList> curWaveList = currentWaveType == WaveType.Enemies ? enemyWaves : projectileWaves;
         if (curWaveList.Count <= 0) return;
-        if (currentWaveIdx >= curWaveList[0].waves.Count)
-        {
-            switch (currentWaveType)
-            {
-                case WaveType.Enemies:
-                    return;
-                case WaveType.Projectiles:
-                    currentWaveIdx = 0;
-                    break;
-            }
+        if (currentWaveIdx >= curWaveList[0].waves.Count) {
+            currentWaveIdx = 0;
         }
         WaveData curWaveData = curWaveList[0].waves[currentWaveIdx];
         
         // Spawn enemies/projectiles during each wave.
-        if (currentBatchIdx <= curWaveData.totalSpawnBatchCount)
+        if (currentBatchIdx < curWaveData.totalSpawnBatchCount)
         {
             waveTimer += Time.deltaTime;
             if (waveTimer >= curWaveData.spawningFrequency)
             {
-                // TODO: Spawn enemies/projectiles.
-                Debug.Log("Spawned enemies.");
+                for (int i = 0; i < curWaveData.spawnBatchSize; i++) 
+                {
+                    GameObject instantiated = Instantiate(currentWaveType == WaveType.Enemies ? enemyPrefab : projectilePrefab);
+                    if (currentWaveType == WaveType.Enemies) {
+                        enemies.Add(instantiated.GetComponent<EnemyController>());
+                    }
+                    else {
+                        projectiles.Add(instantiated.GetComponent<ProjectileController>());
+                    }
+                }
+                Debug.Log("Spawned " + curWaveData.spawnBatchSize + (currentWaveType == WaveType.Enemies ? " enemies." : " projectiles."));
                 currentBatchIdx++;
                 waveTimer = 0;
             }
@@ -94,17 +95,31 @@ public class WaveManager : MonoBehaviour
         currentWaveType = waveType;
     }
 
+    public void DestroyEnemy(EnemyController enemy)
+    {
+        int idx = enemies.FindIndex(enemyController => enemyController == enemy);
+        Destroy(enemy.gameObject);
+        enemies.RemoveAt(idx);
+    }
+
+    public void DestroyProjectile(ProjectileController projectile)
+    {
+        int idx = projectiles.FindIndex(projectileController => projectileController == projectile);
+        Destroy(projectile.gameObject);
+        projectiles.RemoveAt(idx);
+    }
+
     public void EndWave()
     {
         switch (currentWaveType)
         {
         case WaveType.Enemies:
-            enemies.ForEach(Destroy);
+            enemies.ForEach(enemy => Destroy(enemy.gameObject));
             enemies.Clear();
             enemyWaves.RemoveAt(0);
             break;
         case WaveType.Projectiles:
-            projectiles.ForEach(Destroy);
+            projectiles.ForEach(projectile => Destroy(projectile.gameObject));
             projectiles.Clear();
             projectileWaves.RemoveAt(0);
             break;

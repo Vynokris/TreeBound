@@ -107,6 +107,7 @@ public class TreeController : MonoBehaviour
         {
             growingStage++;
             state = TreeState.Waiting;
+            players.ForEach(player => player.UpdateState(state));
             plantingPoint.DeactivateSlates();
             waveManager.EndWave();
             evolveTimer = -1;
@@ -129,8 +130,8 @@ public class TreeController : MonoBehaviour
     }
 
     public TreeState GetState() { return state; }
-    public void OnDamage(int value) { health -= value; }
-    public void OnHeal  (int value) { health += value; }
+    public void OnDamage(float value) { health -= value; }
+    public void OnHeal  (float value) { health += value; }
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
