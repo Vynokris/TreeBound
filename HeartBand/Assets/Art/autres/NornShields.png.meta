@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ff19690129f1fda4b9715aec2a46c597
+guid: f1b1dd92a0c3a694cb96e267fb679122
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,51 +106,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rocks_Small_spr
+      name: Shield_Blue
       rect:
         serializedVersion: 2
-        x: 258
-        y: 14
-        width: 426
-        height: 352
-      alignment: 9
-      pivot: {x: 0.47477552, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c15cbf286d6e72d4fb8ef87ba5e5cba3
-      internalID: -2054037069
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rocks_Main_spr
-      rect:
-        serializedVersion: 2
-        x: 859
-        y: 11
-        width: 701
-        height: 1054
+        x: 44
+        y: 122
+        width: 457
+        height: 1006
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,8 +124,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de093c31819004b4dbe2913f878e3f91
-      internalID: 874376344
+      spriteID: 170762cd74aa32940a04a5c91a9dadbf
+      internalID: 2142773707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Purple
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 122
+        width: 457
+        height: 1006
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 704391b52183e5c45ba33646cef8c609
+      internalID: 368913644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Green
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 122
+        width: 457
+        height: 1006
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63b77ac653f465645ae6df2b7178430e
+      internalID: -79224779
       vertices: []
       indices: 
       edges: []
@@ -175,8 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Rocks_Main_spr: 874376344
-      Rocks_Small_spr: -2054037069
+      Shield_Blue: 2142773707
+      Shield_Green: -79224779
+      Shield_Purple: 368913644
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
