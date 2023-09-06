@@ -65,17 +65,40 @@ public class TreeController : MonoBehaviour
         }
     }
 
-    private void MovingBehavior()
+    private void SetState(TreeState newState)
     {
-        // Plant the tree when all players interact with the planting slates.
-        if (plantingPoint && plantingPoint.IsActivated())
+        state = newState;
+        players.ForEach(player => player.UpdateState(state));
+        switch (state)
         {
-            state = TreeState.Planted;
-            players.ForEach(player => player.UpdateState(state));
+        case TreeState.Moving:
+            waveManager.StartWave(WaveType.Projectiles);
+            plantingPoint.SetUsed();
+            plantingPoint = null;
+            renderer.color = Color.green;
+            break;
+        case TreeState.Planted:
             waveManager.EndWave();
             waveManager.StartWave(WaveType.Enemies);
             evolveTimer = evolveTime;
             renderer.color = Color.magenta;
+            break;
+        case TreeState.Waiting:
+            plantingPoint.DeactivateSlates();
+            waveManager.EndWave();
+            growingStage++;
+            evolveTimer = -1;
+            health = maxHealth;
+            renderer.color = Color.red;
+            break;
+        }
+    }
+
+    private void MovingBehavior()
+    {
+        // Plant the tree when all players interact with the planting slates.
+        if (plantingPoint && plantingPoint.IsActivated()) {
+            SetState(TreeState.Planted);
         }
 
         // Let the players pull the tree.
@@ -103,16 +126,8 @@ public class TreeController : MonoBehaviour
     {
         // Update timer and check if evolution is done.
         evolveTimer -= Time.deltaTime;
-        if (evolveTimer <= 0)
-        {
-            growingStage++;
-            state = TreeState.Waiting;
-            players.ForEach(player => player.UpdateState(state));
-            plantingPoint.DeactivateSlates();
-            waveManager.EndWave();
-            evolveTimer = -1;
-            health = maxHealth;
-            renderer.color = Color.red;
+        if (evolveTimer <= 0) {
+            SetState(TreeState.Waiting);
         }
     }
 
@@ -120,12 +135,7 @@ public class TreeController : MonoBehaviour
     {
         // Start moving once all the players interact with the planting slates.
         if (plantingPoint && plantingPoint.IsActivated()) {
-            state = TreeState.Moving;
-            players.ForEach(player => player.UpdateState(state));
-            waveManager.StartWave(WaveType.Projectiles);
-            plantingPoint.SetUsed();
-            plantingPoint = null;
-            renderer.color = Color.green;
+            SetState(TreeState.Moving);
         }
     }
 

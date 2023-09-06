@@ -49,17 +49,23 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = moveDir * (movementSpeed * Time.deltaTime);
             transform.position += new Vector3(movement.x, movement.y, 0);
 
+            Vector3 targetPos;
+            float   targetRot;
             switch (tree.GetState())
             {
             case TreeState.Moving:
                 // Move shield in front of the player.
-                shield.transform.localPosition = lookDir * equipmentDist;
-                shield.transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.down, lookDir));
+                targetPos = lookDir * equipmentDist;
+                targetRot = Vector2.SignedAngle(Vector2.down, lookDir);
+                shield.transform.localPosition    = Vector3.Slerp(shield.transform.localPosition, targetPos, Time.deltaTime*3);
+                shield.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(shield.transform.localEulerAngles.z, targetRot, Time.deltaTime*3));
                 break;
             case TreeState.Planted:
                 // Move sword in front of the player.
-                sword.transform.localPosition = lookDir * (equipmentDist + swordMovementCurve.Evaluate(attackTimer / attackDuration));
-                sword.transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.up, lookDir));
+                targetPos = lookDir * (equipmentDist + swordMovementCurve.Evaluate(attackTimer / attackDuration));
+                targetRot = Vector2.SignedAngle(Vector2.up, lookDir);
+                sword.transform.localPosition    = Vector3.Slerp(sword.transform.localPosition, targetPos, Time.deltaTime*3);
+                sword.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(sword.transform.localEulerAngles.z, targetRot, Time.deltaTime*3));
                 break;
             }
         }
@@ -126,7 +132,6 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputValue input)
     {
         Vector2 inputVal = input.Get<Vector2>().normalized;
-        Debug.Log(inputVal);
         if (inputVal.sqrMagnitude <= 1e-3f) return;
         lookDir = inputVal;
     }
