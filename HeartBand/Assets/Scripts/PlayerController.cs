@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private new SpriteRenderer renderer;
     private GameObject         shield;
     private GameObject         sword;
+    private GameObject         sprite;
     private PolygonCollider2D  swordCollider;
     private TreeController     tree;
     private PlantingSlate      slate = null;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         renderer      = GetComponent<SpriteRenderer>();
         shield        = transform.GetChild(0).gameObject;
         sword         = transform.GetChild(1).gameObject;
+        sprite        = transform.GetChild(2).gameObject;
         swordCollider = sword.GetComponent<PolygonCollider2D>();
         tree          = FindObjectOfType<TreeController>();
         health        = maxHealth;
@@ -127,6 +129,16 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue input)
     {
         moveDir = input.Get<Vector2>().normalized;
+        if (moveDir.sqrMagnitude < 1e-3) return;
+        
+        // Face forwards.
+        Vector3 curScale = sprite.transform.localScale;
+        if (Vector2.Angle(Vector2.right, moveDir) > 90) {
+            sprite.transform.localScale = new Vector3(-Mathf.Abs(curScale.x), curScale.y, curScale.z);
+        }
+        else {
+            sprite.transform.localScale = new Vector3(Mathf.Abs(curScale.x), curScale.y, curScale.z);
+        }
     }
     
     public void OnLook(InputValue input)
