@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 18bd293731162fc41a2c6e9bba44f0dc
+guid: f1b1dd92a0c3a694cb96e267fb679122
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sword_Blue
+      name: Shield_Blue
       rect:
         serializedVersion: 2
-        x: 92
-        y: 120
-        width: 474
-        height: 1129
+        x: 44
+        y: 122
+        width: 457
+        height: 1006
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b304de4362117549a4c00e81d07c472
-      internalID: -2137574404
+      spriteID: 170762cd74aa32940a04a5c91a9dadbf
+      internalID: 2142773707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sword_Purple
+      name: Shield_Purple
       rect:
         serializedVersion: 2
-        x: 583
-        y: 120
-        width: 469
-        height: 1129
+        x: 561
+        y: 122
+        width: 457
+        height: 1006
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c8bed2dfb636c642a458f2a7cf438cc
-      internalID: -1828783089
+      spriteID: 704391b52183e5c45ba33646cef8c609
+      internalID: 368913644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sword_Green
+      name: Shield_Green
       rect:
         serializedVersion: 2
-        x: 1093
-        y: 120
-        width: 469
-        height: 1129
+        x: 1091
+        y: 122
+        width: 457
+        height: 1006
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17445d259b170ee4e9a8c660b7b75354
-      internalID: 1480586841
+      spriteID: 63b77ac653f465645ae6df2b7178430e
+      internalID: -79224779
       vertices: []
       indices: 
       edges: []
@@ -183,9 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sword_Blue: -2137574404
-      Sword_Green: 1480586841
-      Sword_Purple: -1828783089
+      Shield_Blue: 2142773707
+      Shield_Green: -79224779
+      Shield_Purple: 368913644
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
