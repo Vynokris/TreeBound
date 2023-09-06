@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Ground_Healed
+  m_Name: Ground_Corrupted_Green_spr
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1202116847, guid: f0ade7eb1c6a2b449adde9d8cfd01f1e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 955de6346a9a4a14588a493a64505e0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

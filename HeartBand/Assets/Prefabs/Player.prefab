@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 1596824272399539599}
   - component: {fileID: 3791757014732998347}
   - component: {fileID: 3525378757742575372}
+  - component: {fileID: 4703524968225806308}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -677,6 +678,27 @@ MonoBehaviour:
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 2236805746020981248}
+--- !u!95 &4703524968225806308
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484637580269120169}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e60146eb36a91544881a3c0c7a6d5be7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1796220633965444029
 PrefabInstance:
   m_ObjectHideFlags: 0
