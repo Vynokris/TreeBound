@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68d10f198020a074483b413a796c0b7b
+guid: 5cc3141e3aac14543882cce617d53602
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 250
+  spritePixelsToUnits: 130
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,148 +123,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plant_spr
+      name: Troncs_spr_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 337
-        width: 195
-        height: 167
+        x: 6
+        y: 45
+        width: 221
+        height: 220
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b062a2881e94eac4fa32bd3c1ab458a2
-      internalID: 319123780
+      spriteID: 16c35ec8b754f6e49b221c2913ffca2c
+      internalID: -948761910
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stone_spr
+      name: Troncs_spr_1
       rect:
         serializedVersion: 2
-        x: 213
-        y: 337
-        width: 177
-        height: 165
+        x: 275
+        y: 45
+        width: 239
+        height: 238
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 452047f2acb9eab45a9e38344f6e113c
-      internalID: -1058517245
+      spriteID: 66fa1729799c07b49ae08feab56711a3
+      internalID: 1382640519
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stone_2_spr
+      name: Troncs_spr_2
       rect:
         serializedVersion: 2
-        x: 396
-        y: 337
-        width: 108
-        height: 165
+        x: 533
+        y: 65
+        width: 210
+        height: 228
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34c7a6e9327e73a479c1d4cd37598ea4
-      internalID: 2119772660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Test
-      rect:
-        serializedVersion: 2
-        x: 589
-        y: 338
-        width: 215
-        height: 165
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 676234f32c88c724ba2d969523a7f65b
-      internalID: -1164760119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tronc_3_spr
-      rect:
-        serializedVersion: 2
-        x: 602
-        y: 60
-        width: 215
-        height: 248
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51e92fa70e1007c419320eb170cda60b
-      internalID: -121363525
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tronc_2_spr
-      rect:
-        serializedVersion: 2
-        x: 326
-        y: 53
-        width: 248
-        height: 260
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2774a633904028647a70fe6ed1618191
-      internalID: 1734603229
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tronc__1_spr
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 53
-        width: 251
-        height: 260
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac5270a0a47d7ca429d836a783f206d7
-      internalID: -1145293686
+      spriteID: ee0f033fe80c417479ca2a700bd3af49
+      internalID: -637365933
       vertices: []
       indices: 
       edges: []
@@ -280,13 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Plant_spr: 319123780
-      Stone_2_spr: 2119772660
-      Stone_spr: -1058517245
-      Test: -1164760119
-      Tronc_2_spr: 1734603229
-      Tronc_3_spr: -121363525
-      Tronc__1_spr: -1145293686
+      Troncs_spr_0: -948761910
+      Troncs_spr_1: 1382640519
+      Troncs_spr_2: -637365933
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

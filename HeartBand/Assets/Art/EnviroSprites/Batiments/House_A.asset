@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Plant_spr
+  m_Name: House_A
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 319123780, guid: 68d10f198020a074483b413a796c0b7b, type: 3}
+  m_Sprite: {fileID: -1559362799, guid: ede2e2c3188b56c47a16797fd2a48215, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
