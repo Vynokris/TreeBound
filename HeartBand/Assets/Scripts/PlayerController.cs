@@ -12,8 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float respawnTime    = 5;
     [SerializeField] private float equipmentDist  = 1.2f;
-    [SerializeField] private AnimationCurve swordMovementCurve;
-    [SerializeField] private float equipmentLerp;
+    [SerializeField] private float equipmentLerp  = 3;
 
     private int     health       = -1;
     private float   attackTimer  = 0;
@@ -52,24 +51,22 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = moveDir * (movementSpeed * Time.deltaTime);
             transform.position += new Vector3(movement.x, movement.y, 0);
 
-            Vector3 targetPos;
-            float   targetRot;
-            switch (tree.GetState())
+            // Smoothly move the shield/sword where the player is looking.
+            if (tree.GetState() != TreeState.Waiting)
             {
-            case TreeState.Moving:
-                // Move shield in front of the player.
-                targetPos = lookDir * equipmentDist;
-                targetRot = Vector2.SignedAngle(Vector2.down, lookDir);
-                shield.transform.localPosition    = Vector3.Slerp(shield.transform.localPosition, targetPos, Time.deltaTime* equipmentLerp);
-                shield.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(shield.transform.localEulerAngles.z, targetRot, Time.deltaTime* equipmentLerp));
-                break;
-            case TreeState.Planted:
-                // Move sword in front of the player.
-                targetPos = lookDir * (equipmentDist + swordMovementCurve.Evaluate(attackTimer / attackDuration));
-                targetRot = Vector2.SignedAngle(Vector2.up, lookDir);
-                sword.transform.localPosition    = Vector3.Slerp(sword.transform.localPosition, targetPos, Time.deltaTime*equipmentLerp);
-                sword.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(sword.transform.localEulerAngles.z, targetRot, Time.deltaTime* equipmentLerp));
-                break;
+                Vector3 targetPos = lookDir * equipmentDist;
+                float   targetRot = Vector2.SignedAngle(Vector2.down, lookDir);
+                GameObject activeEquipment = null;
+                switch (tree.GetState())
+                {
+                    case TreeState.Moving:  activeEquipment = shield; break;
+                    case TreeState.Planted: activeEquipment = sword;  break;
+                }
+                if (activeEquipment)
+                {
+                    activeEquipment.transform.localPosition    = Vector3.Slerp(activeEquipment.transform.localPosition, targetPos, Time.deltaTime * equipmentLerp);
+                    activeEquipment.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(activeEquipment.transform.localEulerAngles.z, targetRot, Time.deltaTime * equipmentLerp));
+                }
             }
         }
         else
