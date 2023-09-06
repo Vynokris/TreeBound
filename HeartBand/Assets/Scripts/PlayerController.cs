@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float respawnTime    = 5;
     [SerializeField] private float equipmentDist  = 1.2f;
     [SerializeField] private AnimationCurve swordMovementCurve;
+    [SerializeField] private float equipmentLerp;
 
     private int     health       = -1;
     private float   attackTimer  = 0;
@@ -59,15 +60,15 @@ public class PlayerController : MonoBehaviour
                 // Move shield in front of the player.
                 targetPos = lookDir * equipmentDist;
                 targetRot = Vector2.SignedAngle(Vector2.down, lookDir);
-                shield.transform.localPosition    = Vector3.Slerp(shield.transform.localPosition, targetPos, Time.deltaTime*3);
-                shield.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(shield.transform.localEulerAngles.z, targetRot, Time.deltaTime*3));
+                shield.transform.localPosition    = Vector3.Slerp(shield.transform.localPosition, targetPos, Time.deltaTime* equipmentLerp);
+                shield.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(shield.transform.localEulerAngles.z, targetRot, Time.deltaTime* equipmentLerp));
                 break;
             case TreeState.Planted:
                 // Move sword in front of the player.
                 targetPos = lookDir * (equipmentDist + swordMovementCurve.Evaluate(attackTimer / attackDuration));
                 targetRot = Vector2.SignedAngle(Vector2.up, lookDir);
-                sword.transform.localPosition    = Vector3.Slerp(sword.transform.localPosition, targetPos, Time.deltaTime*3);
-                sword.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(sword.transform.localEulerAngles.z, targetRot, Time.deltaTime*3));
+                sword.transform.localPosition    = Vector3.Slerp(sword.transform.localPosition, targetPos, Time.deltaTime*equipmentLerp);
+                sword.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(sword.transform.localEulerAngles.z, targetRot, Time.deltaTime* equipmentLerp));
                 break;
             }
         }
