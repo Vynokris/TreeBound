@@ -479,6 +479,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  equipmentLerp: 10
 --- !u!114 &6894136971318972615
 MonoBehaviour:
   m_ObjectHideFlags: 0
