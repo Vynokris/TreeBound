@@ -3,30 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 2;
-    [SerializeField] private int   maxHealth     = 3;
-    [SerializeField] private float respawnTime   = 5;
-    [SerializeField] private float shieldDist    = 1.2f;
+    [SerializeField] private float movementSpeed  = 2;
+    [SerializeField] private int   maxHealth      = 3;
+    [SerializeField] private float attackDuration = 0.5f;
+    [SerializeField] private float respawnTime    = 5;
+    [SerializeField] private float equipmentDist  = 1.2f;
+    [SerializeField] private float equipmentLerp  = 3;
 
     private int     health       = -1;
-    private float   respawnTimer = -1;
+    private float   attackTimer  = 0;
+    private float   respawnTimer = 0;
     private Vector2 moveDir;
     private Vector2 lookDir;
     
     private new SpriteRenderer renderer;
-    private GameObject     shield;
-    private TreeController tree;
-    private PlantingSlate  slate = null;
+    private GameObject         shield;
+    private GameObject         sword;
+    private GameObject         sprite;
+    private PolygonCollider2D  swordCollider;
+    private TreeController     tree;
+    private PlantingSlate      slate = null;
     
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        shield   = transform.GetChild(0).gameObject;
-        tree     = FindObjectOfType<TreeController>();
-        health   = maxHealth;
+        renderer      = GetComponent<SpriteRenderer>();
+        shield        = transform.GetChild(0).gameObject;
+        sword         = transform.GetChild(1).gameObject;
+        sprite        = transform.GetChild(2).gameObject;
+        swordCollider = sword.GetComponent<PolygonCollider2D>();
+        tree          = FindObjectOfType<TreeController>();
+        health        = maxHealth;
+        
+        shield.SetActive(false);
+        sword .SetActive(false);
+        swordCollider.enabled = false;
     }
 
     void Update()
@@ -37,11 +51,22 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = moveDir * (movementSpeed * Time.deltaTime);
             transform.position += new Vector3(movement.x, movement.y, 0);
 
-            if (tree.GetState() == TreeState.Moving)
+            // Smoothly move the shield/sword where the player is looking.
+            if (tree.GetState() != TreeState.Waiting)
             {
-                // Move shield in front of the player.
-                shield.transform.localPosition = lookDir * shieldDist;
-                shield.transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.down, lookDir));
+                Vector3 targetPos = lookDir * equipmentDist;
+                float   targetRot = Vector2.SignedAngle(Vector2.down, lookDir);
+                GameObject activeEquipment = null;
+                switch (tree.GetState())
+                {
+                    case TreeState.Moving:  activeEquipment = shield; break;
+                    case TreeState.Planted: activeEquipment = sword;  break;
+                }
+                if (activeEquipment)
+                {
+                    activeEquipment.transform.localPosition    = Vector3.Slerp(activeEquipment.transform.localPosition, targetPos, Time.deltaTime * equipmentLerp);
+                    activeEquipment.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(activeEquipment.transform.localEulerAngles.z, targetRot, Time.deltaTime * equipmentLerp));
+                }
             }
         }
         else
@@ -58,11 +83,22 @@ public class PlayerController : MonoBehaviour
                 respawnTimer -= Time.deltaTime;
                 if (respawnTimer <= 0)
                 {
-                    respawnTimer = -1;
+                    respawnTimer = 0;
                     health = maxHealth;
                     renderer.enabled = true;
                     transform.position = tree.transform.position;
                 }
+            }
+        }
+        
+        // Update the attack timer.
+        if (attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0)
+            {
+                swordCollider.enabled = false;
+                attackTimer = 0;
             }
         }
     }
@@ -74,11 +110,16 @@ public class PlayerController : MonoBehaviour
         switch (treeState)
         {
         case TreeState.Moving:
-            shield.gameObject.SetActive(true);
+            shield.SetActive(true);
+            sword .SetActive(false);
             break;
         case TreeState.Planted:
+            shield.SetActive(false);
+            sword .SetActive(true);
+            break;
         case TreeState.Waiting:
-            shield.gameObject.SetActive(false);
+            shield.SetActive(false);
+            sword .SetActive(false);
             break;
         }
     }
@@ -86,6 +127,16 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue input)
     {
         moveDir = input.Get<Vector2>().normalized;
+        if (moveDir.sqrMagnitude < 1e-3) return;
+        
+        // Face forwards.
+        Vector3 curScale = sprite.transform.localScale;
+        if (Vector2.Angle(Vector2.right, moveDir) > 90) {
+            sprite.transform.localScale = new Vector3(-Mathf.Abs(curScale.x), curScale.y, curScale.z);
+        }
+        else {
+            sprite.transform.localScale = new Vector3(Mathf.Abs(curScale.x), curScale.y, curScale.z);
+        }
     }
     
     public void OnLook(InputValue input)
@@ -97,7 +148,9 @@ public class PlayerController : MonoBehaviour
     
     public void OnAttack(InputValue input)
     {
-        bool temp = input.Get<float>() != 0;
+        if (!sword.activeSelf) return;
+        attackTimer = attackDuration;
+        swordCollider.enabled = true;
     }
 
     public void OnInteract(InputValue input)
