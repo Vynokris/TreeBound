@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 6894136971318972615}
   - component: {fileID: 1596824272399539599}
   - component: {fileID: 3791757014732998347}
+  - component: {fileID: 3525378757742575372}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -422,12 +423,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6de5f4341f9054d9704709ad3a96e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
-  maxHealth: 3
-  attackDamage: 1
+  movementSpeed: 4
+  maxHealth: 1
   attackDuration: 0.5
   respawnTime: 5
-  equipmentDist: 1.2
+  equipmentDist: 1.7
   swordMovementCurve:
     serializedVersion: 2
     m_Curve:
@@ -659,6 +659,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3525378757742575372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484637580269120169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"Sprite","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 2236805746020981248}
 --- !u!1001 &1796220633965444029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -723,5 +740,10 @@ PrefabInstance:
 --- !u!4 &1135649470921917027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 972123c6596dec245bded5ca610e76c8, type: 3}
+  m_PrefabInstance: {fileID: 1796220633965444029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2236805746020981248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: 972123c6596dec245bded5ca610e76c8, type: 3}
   m_PrefabInstance: {fileID: 1796220633965444029}
   m_PrefabAsset: {fileID: 0}

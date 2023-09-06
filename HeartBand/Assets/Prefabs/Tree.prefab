@@ -102,8 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   decaySpeed: 0.1
-  pullSpeed: 0.1
-  maxPlayerDist: 4
+  pullSpeed: 0.3
+  maxPlayerDist: 3
   evolveTime: 30
 --- !u!114 &2492334573841646296
 MonoBehaviour:
