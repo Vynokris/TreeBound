@@ -6,15 +6,21 @@ public class PlantingSlate : MonoBehaviour
 {
     private GameObject interactingPlayer = null;
     private new SpriteRenderer renderer;
+    private bool used = false;
     
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
     }
+    
+    public bool WasUsed() { return used; }
+    public void SetUsed() { used = true; }
+    
+    public bool IsActivated() { return !used && interactingPlayer; }
 
     public void Activate(GameObject player)
     {
-        if (interactingPlayer) return;
+        if (used || interactingPlayer) return;
         interactingPlayer = player;
         renderer.color = interactingPlayer.GetComponent<PlayerController>().GetColor();
     }
@@ -24,6 +30,4 @@ public class PlantingSlate : MonoBehaviour
         renderer.color = Color.grey;
         interactingPlayer = null;
     }
-    
-    public bool IsActivated() { return interactingPlayer; }
 }

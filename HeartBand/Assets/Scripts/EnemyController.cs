@@ -19,11 +19,11 @@ public class EnemyController : MonoBehaviour
         waveManager = FindObjectOfType<WaveManager>();
         
         // Spawn randomly around the screen.
-        Camera  cam       = FindObjectOfType<Camera>();
-        float   orthoSize = cam.orthographicSize;
-        Vector2 camExtent = new Vector2(orthoSize, orthoSize * Screen.width / Screen.height);
-        float   randAngle = Random.Range(0f, Mathf.PI*2);
-        transform.position = new Vector3(Mathf.Cos(randAngle), Mathf.Sin(randAngle), 0) * (camExtent.x + 4);
+        Camera  cam        = FindObjectOfType<Camera>();
+        float   orthoSize  = cam.orthographicSize;
+        Vector2 camExtent  = new Vector2(orthoSize, orthoSize * Screen.width / Screen.height);
+        float   randAngle  = Random.Range(0f, Mathf.PI*2);
+        transform.position = new Vector3(Mathf.Cos(randAngle), Mathf.Sin(randAngle), 0) * (camExtent.x + 4) + new Vector3(cam.transform.position.x, cam.transform.position.y, 0);
     }
 
     void Update()
