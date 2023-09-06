@@ -5,13 +5,18 @@ using System.Timers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[Serializable] public class ProjectileStats
+{
+    public float activationTime   = 3;
+    public float accelerationTime = 1;
+    public float maxSpeed         = 3;
+    public int   damage           = 1;
+}
+
 public class ProjectileController : MonoBehaviour
 {
-    [SerializeField] private float activationTime   = 3;
-    [SerializeField] private float maxSpeed         = 3;
-    [SerializeField] private int   damage           = 1;
+    [SerializeField] private ProjectileStats stats;
     [SerializeField] private float attackDistance   = 0.5f;
-    [SerializeField] private float accelerationTime = 1;
     [SerializeField] private AnimationCurve accelerationCurve;
     
     private TreeController tree;
@@ -35,15 +40,15 @@ public class ProjectileController : MonoBehaviour
     void Update()
     {
         float movementSpeed = 0;
-        if (activationTimer < activationTime) {
+        if (activationTimer < stats.activationTime) {
             activationTimer += Time.deltaTime;
         }
-        else if (accelerationTimer < accelerationTime) {
+        else if (accelerationTimer < stats.accelerationTime) {
             accelerationTimer += Time.deltaTime;
-            movementSpeed = accelerationCurve.Evaluate(accelerationTimer) * maxSpeed;
+            movementSpeed = accelerationCurve.Evaluate(accelerationTimer) * stats.maxSpeed;
         }
         else {
-            movementSpeed = maxSpeed;
+            movementSpeed = stats.maxSpeed;
         }
 
         if (movementSpeed > 0)
@@ -51,11 +56,16 @@ public class ProjectileController : MonoBehaviour
             Vector2 projectileToTree = tree.transform.position - transform.position;
             if (projectileToTree.magnitude < attackDistance)
             {
-                tree.OnDamage(damage);
+                tree.OnDamage(stats.damage);
                 waveManager.DestroyProjectile(this);
             }
             transform.position += (Vector3)(projectileToTree.normalized * (movementSpeed * Time.deltaTime));
         }
+    }
+    
+    public void SetStats(ProjectileStats newStats)
+    {
+        stats = newStats;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

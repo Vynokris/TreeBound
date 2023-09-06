@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputValue input)
     {
         Vector2 inputVal = input.Get<Vector2>().normalized;
+        Debug.Log(inputVal);
         if (inputVal.sqrMagnitude <= 1e-3f) return;
         lookDir = inputVal;
     }

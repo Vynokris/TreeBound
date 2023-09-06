@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7218730124563823230
 MonoBehaviour:
@@ -46,12 +46,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 506832281119302439, guid: 5bfe5d7cdd27af441aa98d368c38a622, type: 3}
   projectilePrefab: {fileID: 3564540103472525349, guid: 248f260d559084249b6fe2b636850f77, type: 3}
+  enemyStats:
+  - movementSpeed: 0
+    attackFrequency: 0
+    attackDamage: 0
+  - movementSpeed: 0
+    attackFrequency: 0
+    attackDamage: 0
+  - movementSpeed: 0
+    attackFrequency: 0
+    attackDamage: 0
+  - movementSpeed: 0
+    attackFrequency: 0
+    attackDamage: 0
+  projectileStats:
+  - activationTime: 0
+    accelerationTime: 0
+    maxSpeed: 0
+    damage: 0
+  - activationTime: 0
+    accelerationTime: 0
+    maxSpeed: 0
+    damage: 0
+  - activationTime: 0
+    accelerationTime: 0
+    maxSpeed: 0
+    damage: 0
   enemyWaves:
   - waves: []
   - waves: []
   - waves: []
   - waves: []
   projectileWaves:
-  - waves: []
-  - waves: []
-  - waves: []
+  - spawnCountMin: 0
+    spawnCountMax: 0
+    spawnFrequencyMin: 0
+    spawnFrequencyMax: 0
+  - spawnCountMin: 0
+    spawnCountMax: 0
+    spawnFrequencyMin: 0
+    spawnFrequencyMax: 0
+  - spawnCountMin: 0
+    spawnCountMax: 0
+    spawnFrequencyMin: 0
+    spawnFrequencyMax: 0
