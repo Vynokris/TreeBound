@@ -1,11 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlantingPoint : MonoBehaviour
 {
-    [SerializeField] private GameObject plantingSlatePrefab;
+    [SerializeField] private GameObject     plantingSlatePrefab;
+    [SerializeField] private float          healingRange        = 5;
+    [SerializeField] private float          healingAnimDuration = 5;
+    [SerializeField] private AnimationCurve healingAnimCurve;
+    
     private List<PlantingSlate> slates = new();
+    private SpriteMask spriteMask;
+    private bool  used;
+    private float healingAnimTimer;
+
+    private void Start()
+    {
+        spriteMask = transform.GetChild(0).GetComponent<SpriteMask>();
+    }
+
+    private void Update()
+    {
+        if (!WasUsed() || healingAnimTimer > healingAnimDuration) return;
+        healingAnimTimer += Time.deltaTime;
+        float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * healingRange;
+        spriteMask.transform.localScale = new Vector3(maskSize, maskSize, maskSize);
+    }
 
     public void UpdateSlateCount(int playerCount)
     {
@@ -35,9 +56,17 @@ public class PlantingPoint : MonoBehaviour
             slates.Add(slate.GetComponent<PlantingSlate>());
         }
     }
+    
+    public bool WasUsed() { return used; }
+    public void SetUsed()
+    {
+        used = true;
+        slates.ForEach(slate => slate.SetUsed());
+    }
 
     public bool IsActivated()
     {
+        if (WasUsed()) return false;
         foreach (PlantingSlate slate in slates) {
             if (!slate.IsActivated()) {
                 return false;

@@ -123,7 +123,7 @@ public class TreeController : MonoBehaviour
             state = TreeState.Moving;
             players.ForEach(player => player.UpdateState(state));
             waveManager.StartWave(WaveType.Projectiles);
-            plantingPoint.gameObject.SetActive(false);
+            plantingPoint.SetUsed();
             plantingPoint = null;
             renderer.color = Color.green;
         }

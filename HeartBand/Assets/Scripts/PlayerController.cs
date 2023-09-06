@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed  = 2;
     [SerializeField] private int   maxHealth      = 3;
-    [SerializeField] private int   attackDamage   = 1;
     [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float respawnTime    = 5;
     [SerializeField] private float equipmentDist  = 1.2f;
