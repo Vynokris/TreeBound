@@ -30,11 +30,11 @@ Transform:
   m_GameObject: {fileID: 8700201896016530641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7195171838735000948
 SpriteRenderer:
@@ -102,8 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   decaySpeed: 0.1
-  pullSpeed: 0.3
-  maxPlayerDist: 3
+  pullSpeed: 0.4
+  maxPlayerDist: 5
   evolveTime: 30
 --- !u!114 &2492334573841646296
 MonoBehaviour:
