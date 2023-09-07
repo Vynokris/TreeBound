@@ -326,6 +326,10 @@ PrefabInstance:
       value: 0.35840824
       objectReference: {fileID: 0}
     - target: {fileID: 747023013464291395, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 747023013464291395, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
       propertyPath: SizeModule.enabled
       value: 1
       objectReference: {fileID: 0}
@@ -600,6 +604,10 @@ PrefabInstance:
     - target: {fileID: 3698531492616386360, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
       propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[2].outWeight
       value: 0.35840824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514518936241842315, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4514518936241842315, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
       propertyPath: SizeModule.enabled
@@ -940,6 +948,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3552268015975887145, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+    - {fileID: 6077351793984770264, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+    - {fileID: 5600491116588517218, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+    - {fileID: 4109210328528322154, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+    - {fileID: 3220699870053648907, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+    - {fileID: 2795093413779790145, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
+    - {fileID: 5520401538325121155, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce284feb9dfb3724ca894468ce03b2f8, type: 3}
