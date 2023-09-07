@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,7 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float evolveTime    = 30;
     
     private new SpriteRenderer renderer;
+    private new Rigidbody2D    rigidbody;
     private TreeState state    = TreeState.Waiting;
     private int   growingStage = 0;
     private float health       = -1;
@@ -33,6 +35,7 @@ public class TreeController : MonoBehaviour
     void Start()
     {
         renderer    = GetComponent<SpriteRenderer>();
+        rigidbody   = GetComponent<Rigidbody2D>();
         waveManager = FindObjectOfType<WaveManager>();
         health      = maxHealth;
     }
@@ -42,18 +45,55 @@ public class TreeController : MonoBehaviour
         switch (state)
         {
         case TreeState.Moving:
+            // Plant the tree when all players interact with the planting slates.
+            if (plantingPoint && plantingPoint.IsActivated()) {
+                SetState(TreeState.Planted);
+            }
             CheckHealth();
-            MovingBehavior();
             break;
+        
         case TreeState.Planted:
+            // Update timer and check if evolution is done.
+            evolveTimer -= Time.deltaTime;
+            if (evolveTimer <= 0) {
+                SetState(TreeState.Waiting);
+            }
             CheckHealth(false);
-            PlantedBehavior();
             break;
+        
         case TreeState.Waiting:
+            // Start moving once all the players interact with the planting slates.
+            if (plantingPoint && plantingPoint.IsActivated()) {
+                SetState(TreeState.Moving);
+            }
             CheckHealth(growingStage > 0);
-            WaitingBehavior();
             break;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (state != TreeState.Moving) return;
+        
+        // Let the players pull the tree.
+        Vector2 pullDir = new();
+        foreach (PlayerController player in players)
+        {
+            Vector2 playerToTree = player.transform.position - transform.position;
+            if (playerToTree.magnitude > maxPlayerDist)
+            {
+                playerToTree = playerToTree.normalized * maxPlayerDist;
+                player.transform.position = transform.position + (Vector3)playerToTree;
+            }
+            pullDir += playerToTree;
+        }
+        // Move towards the planting point.
+        if (plantingPoint)
+        {
+            Vector2 treeToPoint = plantingPoint.transform.position - transform.position;
+            pullDir += treeToPoint * 2;
+        }
+        rigidbody.velocity = pullDir * pullSpeed;
     }
 
     private void CheckHealth(bool decay = true)
@@ -95,51 +135,6 @@ public class TreeController : MonoBehaviour
         }
     }
 
-    private void MovingBehavior()
-    {
-        // Plant the tree when all players interact with the planting slates.
-        if (plantingPoint && plantingPoint.IsActivated()) {
-            SetState(TreeState.Planted);
-        }
-
-        // Let the players pull the tree.
-        Vector2 pullDir = new();
-        foreach (PlayerController player in players)
-        {
-            Vector2 playerToTree = player.transform.position - transform.position;
-            if (playerToTree.magnitude > maxPlayerDist)
-            {
-                playerToTree = playerToTree.normalized * maxPlayerDist;
-                player.transform.position = transform.position + (Vector3)playerToTree;
-            }
-            pullDir += playerToTree;
-        }
-        // Move towards the planting point.
-        if (plantingPoint)
-        {
-            Vector2 treeToPoint = plantingPoint.transform.position - transform.position;
-            pullDir += treeToPoint * 2;
-        }
-        transform.position += (Vector3)(pullDir * (pullSpeed * Time.deltaTime));
-    }
-
-    private void PlantedBehavior()
-    {
-        // Update timer and check if evolution is done.
-        evolveTimer -= Time.deltaTime;
-        if (evolveTimer <= 0) {
-            SetState(TreeState.Waiting);
-        }
-    }
-
-    private void WaitingBehavior()
-    {
-        // Start moving once all the players interact with the planting slates.
-        if (plantingPoint && plantingPoint.IsActivated()) {
-            SetState(TreeState.Moving);
-        }
-    }
-
     public TreeState GetState() { return state; }
     public void OnDamage(float value) { health -= value; }
     public void OnHeal  (float value) { health += value; }
@@ -155,16 +150,16 @@ public class TreeController : MonoBehaviour
         switch (players.Count)
         {
         case 1:
-            players[0].GetComponent<SpriteRenderer>().color = Color.red;
+            players[0].SetColor(Color.red);
             break;
         case 2:
-            players[1].GetComponent<SpriteRenderer>().color = Color.blue;
+            players[1].SetColor(Color.blue);
             break;
         case 3:
-            players[2].GetComponent<SpriteRenderer>().color = Color.green;
+            players[2].SetColor(Color.green);
             break;
         case 4:
-            players[3].GetComponent<SpriteRenderer>().color = Color.magenta;
+            players[3].SetColor(Color.magenta);
             break;
         }
     }

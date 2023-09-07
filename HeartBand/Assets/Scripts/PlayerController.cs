@@ -14,13 +14,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float equipmentDist  = 1.2f;
     [SerializeField] private float equipmentLerp  = 3;
 
+    private Color   color;
     private int     health       = -1;
     private float   attackTimer  = 0;
     private float   respawnTimer = 0;
     private Vector2 moveDir;
     private Vector2 lookDir;
     
-    private new SpriteRenderer renderer;
+    private new Rigidbody2D    rigidbody;
     private GameObject         shield;
     private GameObject         sword;
     private GameObject         sprite;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
-        renderer      = GetComponent<SpriteRenderer>();
+        rigidbody     = GetComponent<Rigidbody2D>();
         shield        = transform.GetChild(0).gameObject;
         sword         = transform.GetChild(1).gameObject;
         sprite        = transform.GetChild(2).gameObject;
@@ -43,14 +44,18 @@ public class PlayerController : MonoBehaviour
         swordCollider.enabled = false;
     }
 
+    private void FixedUpdate()
+    {
+        // Move if not dead.
+        if (health <= 0) return;
+        Vector2 movement = moveDir * movementSpeed;
+        rigidbody.velocity = new Vector2(movement.x, movement.y);
+    }
+
     void Update()
     {
         if (health > 0)
         {
-            // Move if not dead.
-            Vector2 movement = moveDir * (movementSpeed * Time.deltaTime);
-            transform.position += new Vector3(movement.x, movement.y, 0);
-
             // Smoothly move the shield/sword where the player is looking.
             if (tree.GetState() != TreeState.Waiting)
             {
@@ -75,7 +80,7 @@ public class PlayerController : MonoBehaviour
             if (respawnTimer <= 0)
             {
                 respawnTimer = respawnTime;
-                renderer.enabled = false;
+                // TODO: Hide the player.
             }
             else
             {
@@ -85,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 {
                     respawnTimer = 0;
                     health = maxHealth;
-                    renderer.enabled = true;
+                    // TODO: Show the player.
                     transform.position = tree.transform.position;
                 }
             }
@@ -103,7 +108,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Color GetColor() { return renderer.color; }
+    public void  SetColor(Color newColor) { color = newColor; }
+    public Color GetColor() { return color; }
 
     public void UpdateState(TreeState treeState)
     {
