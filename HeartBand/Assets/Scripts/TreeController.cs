@@ -186,6 +186,7 @@ public class TreeController : MonoBehaviour
         players.Add(playerInput.gameObject.GetComponent<PlayerController>());
         int              playerIdx = players.Count-1;
         PlayerController newPlayer = players.Last();
+        newPlayer.transform.position = transform.position;
         newPlayer.SetColor(playerColors[playerIdx]);
         newPlayer.SetSprite(Instantiate(playerSpritePrefabs[playerIdx], newPlayer.transform.GetChild(0)));
         newPlayer.SetShield(Instantiate(shieldPrefabs      [playerIdx], newPlayer.transform));

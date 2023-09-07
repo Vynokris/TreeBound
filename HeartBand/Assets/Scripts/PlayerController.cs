@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed  = 2;
     [SerializeField] private int   maxHealth      = 3;
-    [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float respawnTime    = 5;
     [SerializeField] private float shieldDist     = 1.2f;
     [SerializeField] private float swordDist      = 0.8f;
@@ -50,6 +49,8 @@ public class PlayerController : MonoBehaviour
         lineRenderer.positionCount = lineResolution;
         lineRenderer.SetPositions(linePoints);
         lineRenderer.enabled = false;
+        
+        transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
     }
 
     private void FixedUpdate()
