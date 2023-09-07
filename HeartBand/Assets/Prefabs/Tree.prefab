@@ -106,6 +106,18 @@ MonoBehaviour:
   pullSpeed: 0.4
   maxPlayerDist: 5
   evolveTime: 30
+  playerColors:
+  - {r: 0.5254902, g: 0.86274517, b: 0.8313726, a: 1}
+  - {r: 0.78823537, g: 0.9333334, b: 0.6117647, a: 1}
+  - {r: 0.9960785, g: 0.7254902, b: 0.9921569, a: 1}
+  swordPrefabs:
+  - {fileID: 1006583177789051681, guid: 51cfb2f597aaf22419c513cd5b78d84f, type: 3}
+  - {fileID: 1006583177789051681, guid: e5176745777f0474cae848e5889c4922, type: 3}
+  - {fileID: 1006583177789051681, guid: 8e8318024ce91ba4394975f37d4174df, type: 3}
+  shieldPrefabs:
+  - {fileID: 7669092015783066045, guid: a051ee0df1dcf0f4595b5d79463e37ef, type: 3}
+  - {fileID: 6885302486360861127, guid: f2bcebf093ee2134db1c9d4e2c725e71, type: 3}
+  - {fileID: 6800480995750819972, guid: 84fd73dc7577d5246813641decb878ce, type: 3}
 --- !u!114 &2492334573841646296
 MonoBehaviour:
   m_ObjectHideFlags: 0

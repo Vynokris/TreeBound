@@ -22,6 +22,9 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float pullSpeed     = 0.1f;
     [SerializeField] private float maxPlayerDist = 4;
     [SerializeField] private float evolveTime    = 30;
+    [SerializeField] private List<Color>      playerColors;
+    [SerializeField] private List<GameObject> swordPrefabs;
+    [SerializeField] private List<GameObject> shieldPrefabs;
     
     private new SpriteRenderer renderer;
     private new Rigidbody2D    rigidbody;
@@ -102,7 +105,7 @@ public class TreeController : MonoBehaviour
         if (decay) health -= decaySpeed * Time.deltaTime;
         if (health < 0) {
             Debug.Log("Tree destroyed!");
-            Destroy(gameObject);
+            this.enabled = false;
         }
     }
 
@@ -119,12 +122,14 @@ public class TreeController : MonoBehaviour
             renderer.color = Color.green;
             break;
         case TreeState.Planted:
+            rigidbody.velocity = Vector2.zero;
             waveManager.EndWave();
             waveManager.StartWave(WaveType.Enemies);
             evolveTimer = evolveTime;
             renderer.color = Color.magenta;
             break;
         case TreeState.Waiting:
+            rigidbody.velocity = Vector2.zero;
             plantingPoint.DeactivateSlates();
             waveManager.EndWave();
             growingStage++;
@@ -141,27 +146,16 @@ public class TreeController : MonoBehaviour
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
+        // Spawn player with the right color, shield and sword.
         players.Add(playerInput.gameObject.GetComponent<PlayerController>());
+        int              playerIdx = players.Count-1;
+        PlayerController newPlayer = players.Last();
+        newPlayer.SetColor(playerColors[playerIdx]);
+        newPlayer.SetShield(Instantiate(shieldPrefabs[playerIdx], newPlayer.transform));
+        newPlayer.SetSword (Instantiate(swordPrefabs [playerIdx], newPlayer.transform));
         
         List<PlantingPoint> plantingPoints = FindObjectsOfType<PlantingPoint>().ToList();
         plantingPoints.ForEach(point => point.UpdateSlateCount(players.Count));
-
-        // TODO: Finalize this.
-        switch (players.Count)
-        {
-        case 1:
-            players[0].SetColor(Color.red);
-            break;
-        case 2:
-            players[1].SetColor(Color.blue);
-            break;
-        case 3:
-            players[2].SetColor(Color.green);
-            break;
-        case 4:
-            players[3].SetColor(Color.magenta);
-            break;
-        }
     }
 
     void OnPlayerLeft(PlayerInput playerInput)

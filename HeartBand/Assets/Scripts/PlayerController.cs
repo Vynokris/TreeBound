@@ -21,27 +21,25 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveDir;
     private Vector2 lookDir;
     
-    private new Rigidbody2D    rigidbody;
-    private GameObject         shield;
-    private GameObject         sword;
-    private GameObject         sprite;
-    private PolygonCollider2D  swordCollider;
-    private TreeController     tree;
-    private PlantingSlate      slate = null;
+    private new Rigidbody2D   rigidbody;
+    private GameObject        sprite;
+    private GameObject        shield;
+    private GameObject        sword;
+    private CapsuleCollider2D swordCollider;
+    private Animator          swordAnimator;
+    private List<GameObject>  swordTrails;
+    private TreeController    tree;
+    private PlantingSlate     slate = null;
     
     void Start()
     {
-        rigidbody     = GetComponent<Rigidbody2D>();
-        shield        = transform.GetChild(0).gameObject;
-        sword         = transform.GetChild(1).gameObject;
-        sprite        = transform.GetChild(2).gameObject;
-        swordCollider = sword.GetComponent<PolygonCollider2D>();
-        tree          = FindObjectOfType<TreeController>();
-        health        = maxHealth;
+        rigidbody = GetComponent<Rigidbody2D>();
+        sprite    = transform.GetChild(0).gameObject;
+        tree      = FindObjectOfType<TreeController>();
+        health    = maxHealth;
         
         shield.SetActive(false);
         sword .SetActive(false);
-        swordCollider.enabled = false;
     }
 
     private void FixedUpdate()
@@ -54,13 +52,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        sword.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         if (health > 0)
         {
             // Smoothly move the shield/sword where the player is looking.
             if (tree.GetState() != TreeState.Waiting)
             {
-                Vector3 targetPos = lookDir * equipmentDist;
-                float   targetRot = Vector2.SignedAngle(Vector2.down, lookDir);
                 GameObject activeEquipment = null;
                 switch (tree.GetState())
                 {
@@ -69,8 +66,20 @@ public class PlayerController : MonoBehaviour
                 }
                 if (activeEquipment)
                 {
+                    // Rotate the equipment around the player in the direction where they are looking.
+                    Vector3 targetPos = lookDir * equipmentDist;
+                    float   targetRot = Vector2.SignedAngle(Vector2.right, lookDir);
                     activeEquipment.transform.localPosition    = Vector3.Slerp(activeEquipment.transform.localPosition, targetPos, Time.deltaTime * equipmentLerp);
                     activeEquipment.transform.localEulerAngles = new Vector3(0, 0, Mathf.LerpAngle(activeEquipment.transform.localEulerAngles.z, targetRot, Time.deltaTime * equipmentLerp));
+                    
+                    // Flip the equipment when it is on the left side of the player.
+                    Vector3 curScale = activeEquipment.transform.localScale;
+                    if (Vector2.Angle(Vector2.right, lookDir) > 90) {
+                        activeEquipment.transform.localScale = new Vector3(curScale.x, -Mathf.Abs(curScale.y), curScale.z);
+                    }
+                    else {
+                        activeEquipment.transform.localScale = new Vector3(curScale.x, Mathf.Abs(curScale.y), curScale.z);
+                    }
                 }
             }
         }
@@ -102,12 +111,34 @@ public class PlayerController : MonoBehaviour
             attackTimer -= Time.deltaTime;
             if (attackTimer <= 0)
             {
+                swordAnimator.Rebind();
+                swordAnimator.Update(0f);
+                swordAnimator.enabled = false;
                 swordCollider.enabled = false;
+                swordTrails.ForEach(trail => trail.SetActive(false));
                 attackTimer = 0;
             }
         }
     }
 
+    public void SetShield(GameObject newShield) { shield = newShield; shield.SetActive(false); }
+    public void SetSword (GameObject newSword)
+    {
+        sword = newSword; 
+        GameObject swordChild = sword.transform.GetChild(0).gameObject;
+        swordCollider = swordChild.GetComponent<CapsuleCollider2D>(); 
+        swordCollider.enabled = false;
+        swordAnimator = swordChild.GetComponent<Animator>();
+        swordAnimator.Rebind();
+        swordAnimator.Update(0f);
+        swordAnimator.enabled = false;
+        swordTrails = new List<GameObject>(swordChild.transform.childCount);
+        for (int i = 0; i < swordChild.transform.childCount; i++) {
+            swordTrails.Add(swordChild.transform.GetChild(i).gameObject);
+        }
+        swordTrails.ForEach(trail => trail.SetActive(false));
+        sword.SetActive(false);
+    }
     public void  SetColor(Color newColor) { color = newColor; }
     public Color GetColor() { return color; }
 
@@ -154,9 +185,11 @@ public class PlayerController : MonoBehaviour
     
     public void OnAttack(InputValue input)
     {
-        if (!sword.activeSelf) return;
-        attackTimer = attackDuration;
+        if (!sword.activeSelf || attackTimer > 0) return;
         swordCollider.enabled = true;
+        swordAnimator.enabled = true;
+        swordTrails.ForEach(trail => trail.SetActive(true));
+        attackTimer = swordAnimator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     public void OnInteract(InputValue input)
