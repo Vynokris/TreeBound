@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 506832281119302439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2436155243396162447}
@@ -104,6 +104,7 @@ MonoBehaviour:
     attackFrequency: 1
     attackDamage: 1
   attackDistance: 0.5
+  deathPrefab: {fileID: 550852317971760897, guid: 50a0a7d67a9a58c43a476045cfe989e6, type: 3}
 --- !u!70 &9061653535954754903
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -150,18 +151,6 @@ PrefabInstance:
     - target: {fileID: 3663774596034760817, guid: 2032e451ab7bac7469e52cdc12253695, type: 3}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3663774596034760817, guid: 2032e451ab7bac7469e52cdc12253695, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3663774596034760817, guid: 2032e451ab7bac7469e52cdc12253695, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3663774596034760817, guid: 2032e451ab7bac7469e52cdc12253695, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3663774596034760817, guid: 2032e451ab7bac7469e52cdc12253695, type: 3}
       propertyPath: m_LocalPosition.x

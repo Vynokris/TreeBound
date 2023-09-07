@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyStats stats;
     [SerializeField] private float attackDistance  = 0.5f;
+    [SerializeField] private GameObject deathPrefab;
     
     private float attackTimer = 0;
     private TreeController tree;
@@ -63,6 +64,9 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Sword"))
         {
+            GameObject deadEnemy = Instantiate(deathPrefab);
+            deadEnemy.transform.position = transform.position;
+            // Destroy(deadEnemy, 2);
             waveManager.DestroyEnemy(this);
         }
     }

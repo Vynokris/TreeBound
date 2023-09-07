@@ -115,7 +115,7 @@ public class TreeController : MonoBehaviour
 
     private void UpdateHealingMask()
     {
-        float targetMaskSize = growingStage * healedAreaSize; if (growingStage > 0) targetMaskSize += 1;
+        float targetMaskSize = growingStage * healedAreaSize; if (growingStage > 0) targetMaskSize += 5;
         Vector3 curScale = spriteMask.transform.localScale;
         spriteMask.transform.localScale = Vector3.Lerp(curScale, new Vector3(targetMaskSize, targetMaskSize, targetMaskSize), 0.5f * Time.deltaTime);
     }

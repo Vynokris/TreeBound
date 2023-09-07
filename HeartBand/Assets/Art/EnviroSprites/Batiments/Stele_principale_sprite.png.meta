@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9bd0460c0d9142c4985c7e44c0a642e6
+guid: 5c504078aec532b4ba61039a179f03a8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -107,19 +107,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -134,112 +121,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Arbre_0
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 54
-        width: 288
-        height: 344
-      alignment: 9
-      pivot: {x: 0.5000002, y: 0.14650603}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 591514ff9f0f1014a87d0f831676ce70
-      internalID: 1436628283
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arbre_1
-      rect:
-        serializedVersion: 2
-        x: 379
-        y: 54
-        width: 471
-        height: 634
-      alignment: 9
-      pivot: {x: 0.56454486, y: 0.0703654}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea3af4e2937168041b66f8c44f0aa958
-      internalID: 585690654
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arbre_2
-      rect:
-        serializedVersion: 2
-        x: 867
-        y: 59
-        width: 486
-        height: 684
-      alignment: 9
-      pivot: {x: 0.53002554, y: 0.060881887}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7f8bcd25489a684984b69376feb5066
-      internalID: 1971707453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arbre_3
-      rect:
-        serializedVersion: 2
-        x: 1479
-        y: 62
-        width: 625
-        height: 919
-      alignment: 9
-      pivot: {x: 0.4649791, y: 0.042173326}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4c4290751cbe9740806428fd225b98b
-      internalID: 1296313206
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arbre_4
-      rect:
-        serializedVersion: 2
-        x: 2122
-        y: 0
-        width: 1108
-        height: 1175
-      alignment: 9
-      pivot: {x: 0.53292507, y: 0.0850011}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15924e71464f4d14f94a679dc20b00f2
-      internalID: -1615457186
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -250,12 +132,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Arbre_0: 1436628283
-      Arbre_1: 585690654
-      Arbre_2: 1971707453
-      Arbre_3: 1296313206
-      Arbre_4: -1615457186
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
