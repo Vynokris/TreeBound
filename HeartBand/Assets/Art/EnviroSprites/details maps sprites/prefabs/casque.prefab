@@ -31,7 +31,7 @@ Transform:
   - {fileID: 6103046775835464463}
   - {fileID: 2325425879904560613}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4144831334855321063
 GameObject:
@@ -128,12 +128,12 @@ GameObject:
   - component: {fileID: 6103046775835464463}
   - component: {fileID: 6681803719164067011}
   m_Layer: 0
-  m_Name: casque
+  m_Name: casque_healed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6103046775835464463
 Transform:
   m_ObjectHideFlags: 0

@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 6365225031337497096}
   - component: {fileID: 8741718941660286538}
   m_Layer: 0
-  m_Name: herbe 2
+  m_Name: herbe 2_healed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6365225031337497096
 Transform:
   m_ObjectHideFlags: 0
@@ -199,5 +199,5 @@ Transform:
   - {fileID: 6365225031337497096}
   - {fileID: 7776294053892309117}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

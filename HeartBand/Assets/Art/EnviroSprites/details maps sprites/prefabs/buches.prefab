@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 6754340352812400030}
   - component: {fileID: 7237804702636040554}
   m_Layer: 0
-  m_Name: buche
+  m_Name: buche_healed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6754340352812400030
 Transform:
   m_ObjectHideFlags: 0
@@ -199,5 +199,5 @@ Transform:
   - {fileID: 6754340352812400030}
   - {fileID: 1898426282737836945}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
