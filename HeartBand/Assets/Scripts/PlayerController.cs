@@ -11,8 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int   maxHealth      = 3;
     [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float respawnTime    = 5;
-    [SerializeField] private float equipmentDist  = 1.2f;
+    [SerializeField] private float shieldDist     = 1.2f;
+    [SerializeField] private float swordDist      = 0.8f;
     [SerializeField] private float equipmentLerp  = 3;
+    [SerializeField] private int   lineResolution = 10;
+    [SerializeField] private float lineLerp       = 30;
 
     private Color   color;
     private int     health       = -1;
@@ -28,17 +31,25 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D swordCollider;
     private Animator          swordAnimator;
     private List<GameObject>  swordTrails;
+    private LineRenderer      lineRenderer;
+    private Vector3[]         linePoints;
     private TreeController    tree;
     private PlantingSlate     slate = null;
     
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        tree      = FindObjectOfType<TreeController>();
-        health    = maxHealth;
+        rigidbody    = GetComponent<Rigidbody2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+        tree         = FindObjectOfType<TreeController>();
+        health       = maxHealth;
+        linePoints   = new Vector3[lineResolution];
         
         shield.SetActive(false);
         sword .SetActive(false);
+        lineRenderer.startColor = color;
+        lineRenderer.positionCount = lineResolution;
+        lineRenderer.SetPositions(linePoints);
+        lineRenderer.enabled = false;
     }
 
     private void FixedUpdate()
@@ -51,17 +62,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        sword.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         if (health > 0)
         {
             // Smoothly move the shield/sword where the player is looking.
             if (tree.GetState() != TreeState.Waiting)
             {
                 GameObject activeEquipment = null;
+                float equipmentDist = 0;
                 switch (tree.GetState())
                 {
-                    case TreeState.Moving:  activeEquipment = shield; break;
-                    case TreeState.Planted: activeEquipment = sword;  break;
+                    case TreeState.Moving:  activeEquipment = shield; equipmentDist = shieldDist; break;
+                    case TreeState.Planted: activeEquipment = sword;  equipmentDist = swordDist;  break;
                 }
                 if (activeEquipment)
                 {
@@ -118,13 +129,25 @@ public class PlayerController : MonoBehaviour
                 attackTimer = 0;
             }
         }
+        
+        // Update the line renderer.
+        linePoints[0] = transform.position;
+        for (int i = 1; i < lineResolution; i++) {
+            linePoints[i] = Vector3.Lerp(linePoints[i], linePoints[i-1], Time.deltaTime * lineLerp);
+        }
+        linePoints[lineResolution-1] = tree.transform.position + Vector3.up * 0.5f;
+        for (int i = lineResolution - 2; i >= 0; i--) {
+            linePoints[i] = Vector3.Lerp(linePoints[i], linePoints[i+1], Time.deltaTime * lineLerp);
+        }
+        lineRenderer.SetPositions(linePoints);
     }
 
     public void SetSprite(GameObject newSprite) { sprite = newSprite; }
     public void SetShield(GameObject newShield) { shield = newShield; shield.SetActive(false); }
     public void SetSword (GameObject newSword)
     {
-        sword = newSword; 
+        sword = newSword;
+        sword.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         GameObject swordChild = sword.transform.GetChild(0).gameObject;
         swordCollider = swordChild.GetComponent<CapsuleCollider2D>(); 
         swordCollider.enabled = false;
@@ -149,10 +172,12 @@ public class PlayerController : MonoBehaviour
         case TreeState.Moving:
             shield.SetActive(true);
             sword .SetActive(false);
+            lineRenderer.enabled = true;
             break;
         case TreeState.Planted:
             shield.SetActive(false);
             sword .SetActive(true);
+            lineRenderer.enabled = false;
             break;
         case TreeState.Waiting:
             shield.SetActive(false);
