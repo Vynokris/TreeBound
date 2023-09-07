@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7bf1b464baa59f84fa855c6ba37710df
+guid: 7cc5f3a41f7efd34399ee7ab079e66c4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 130
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ground_Details_spr_0
+      name: Ground_Corrupted_Details_spr_0
       rect:
         serializedVersion: 2
-        x: 15
+        x: 13
         y: 89
-        width: 31
-        height: 28
+        width: 37
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,40 +137,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11ff567be8021324d90831ef6d22fc32
-      internalID: 1147532660
+      spriteID: ee71189827f5b5544b8f5307beda1c54
+      internalID: -1712879669
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ground_Details_spr_1
+      name: Ground_Corrupted_Details_spr_1
       rect:
         serializedVersion: 2
-        x: 92
-        y: 84
-        width: 35
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5574d5d0887cb34d84d1b319d036f20
-      internalID: -1232449116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_Details_spr_2
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 56
-        width: 33
+        x: 90
+        y: 87
+        width: 39
         height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -179,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf3dab690c42beb47a127659fcb2d8d1
-      internalID: -422743376
+      spriteID: 2be6ba9f5e2df1747bcdceac2da09a34
+      internalID: 1874622422
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ground_Details_spr_3
+      name: Ground_Corrupted_Details_spr_2
       rect:
         serializedVersion: 2
-        x: 12
-        y: 27
-        width: 33
-        height: 25
+        x: 55
+        y: 54
+        width: 34
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,41 +179,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c38e036ae50001647a8c980651509250
-      internalID: 405792700
+      spriteID: 6e59eb6bc4224dc49ba8673f3ce20439
+      internalID: -1041515612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ground_Details_spr_4
+      name: Ground_Corrupted_Details_spr_3
       rect:
         serializedVersion: 2
-        x: 63
-        y: 12
-        width: 30
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d59e6bb21bc6d247a5bb4d7f3c5795b
-      internalID: -1730336719
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_Details_spr_5
-      rect:
-        serializedVersion: 2
-        x: 99
+        x: 11
         y: 28
-        width: 22
-        height: 26
+        width: 36
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,8 +200,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5d99ea7eef10d843b3da549388e926a
-      internalID: 159469179
+      spriteID: ef7ec899253bfe24a959fcf79a4dd4db
+      internalID: 927311119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Corrupted_Details_spr_4
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 9
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8134ac7459e41694a997310ff5722cef
+      internalID: -749699736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Corrupted_Details_spr_5
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 32
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abfef34cf180bc04bbcebf141d84bf18
+      internalID: 1969410267
       vertices: []
       indices: 
       edges: []
@@ -259,12 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ground_Details_spr_0: 1147532660
-      Ground_Details_spr_1: -1232449116
-      Ground_Details_spr_2: -422743376
-      Ground_Details_spr_3: 405792700
-      Ground_Details_spr_4: -1730336719
-      Ground_Details_spr_5: 159469179
+      Ground_Corrupted_Details_spr_0: -1712879669
+      Ground_Corrupted_Details_spr_1: 1874622422
+      Ground_Corrupted_Details_spr_2: -1041515612
+      Ground_Corrupted_Details_spr_3: 927311119
+      Ground_Corrupted_Details_spr_4: -749699736
+      Ground_Corrupted_Details_spr_5: 1969410267
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
