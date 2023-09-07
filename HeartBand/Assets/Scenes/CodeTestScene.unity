@@ -1335,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6172766015415802619, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: evolveDurations.Array.data[0]
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8700201896016530641, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: m_Name

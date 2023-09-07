@@ -124,7 +124,6 @@ public class TreeController : MonoBehaviour
     {
         if (transitionTimer <= 0) return;
         transitionTimer -= Time.deltaTime;
-        Debug.Log(transitionTimer);
         renderer          .material.SetFloat("_Fade", 1-transitionTimer);
         transitionRenderer.material.SetFloat("_Fade", transitionTimer);
         if (transitionTimer <= 0) {
@@ -188,9 +187,9 @@ public class TreeController : MonoBehaviour
         int              playerIdx = players.Count-1;
         PlayerController newPlayer = players.Last();
         newPlayer.SetColor(playerColors[playerIdx]);
+        newPlayer.SetSprite(Instantiate(playerSpritePrefabs[playerIdx], newPlayer.transform.GetChild(0)));
         newPlayer.SetShield(Instantiate(shieldPrefabs      [playerIdx], newPlayer.transform));
         newPlayer.SetSword (Instantiate(swordPrefabs       [playerIdx], newPlayer.transform));
-        newPlayer.SetSprite(Instantiate(playerSpritePrefabs[playerIdx], newPlayer.transform));
         
         List<PlantingPoint> plantingPoints = FindObjectsOfType<PlantingPoint>().ToList();
         plantingPoints.ForEach(point => point.UpdateSlateCount(players.Count));
