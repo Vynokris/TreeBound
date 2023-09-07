@@ -18,6 +18,7 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private ProjectileStats stats;
     [SerializeField] private float attackDistance   = 0.5f;
     [SerializeField] private AnimationCurve accelerationCurve;
+    [SerializeField] private GameObject explodingPrefab;
     
     private TreeController tree;
     private WaveManager    waveManager;
@@ -61,6 +62,9 @@ public class ProjectileController : MonoBehaviour
             Vector2 projectileToTree = tree.transform.position - transform.position;
             if (projectileToTree.magnitude < attackDistance)
             {
+                GameObject explodingProjectile = Instantiate(explodingPrefab);
+                explodingProjectile.transform.position = transform.position;
+                Destroy(explodingProjectile, 2);
                 tree.OnDamage(stats.damage);
                 waveManager.DestroyProjectile(this);
             }
@@ -77,6 +81,9 @@ public class ProjectileController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Shield"))
         {
+            GameObject explodingProjectile = Instantiate(explodingPrefab);
+            explodingProjectile.transform.position = transform.position;
+            Destroy(explodingProjectile, 2);
             waveManager.DestroyProjectile(this);
         }
     }
