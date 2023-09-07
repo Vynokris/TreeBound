@@ -115,7 +115,7 @@ TextureImporter:
         serializedVersion: 2
         x: 85
         y: 1223
-        width: 920
+        width: 643
         height: 1062
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -134,12 +134,12 @@ TextureImporter:
       name: House_B
       rect:
         serializedVersion: 2
-        x: 1070
+        x: 753
         y: 1204
-        width: 1204
+        width: 875
         height: 1066
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,6 +147,90 @@ TextureImporter:
       bones: []
       spriteID: cdbf002e91401a14ca676744c8ab2306
       internalID: 1421282805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: House_C
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 956
+        width: 1022
+        height: 1310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e8d74aef995d39449e6f70e7f960f18
+      internalID: -318600536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Barrier
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 643
+        width: 428
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3184afb4491e7b488c85e51a1552bdb
+      internalID: -1065554224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BarrierWoodPost
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 631
+        width: 185
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fdc94eb804ff5548a030864990dc6d7
+      internalID: 1936688583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BarrierWood
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 707
+        width: 305
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 382472999e45b2f45bd3140ec12b3cc9
+      internalID: -1292220037
       vertices: []
       indices: 
       edges: []
@@ -162,8 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Barrier: -1065554224
+      BarrierWood: -1292220037
+      BarrierWoodPost: 1936688583
       House_A: -1559362799
       House_B: 1421282805
+      House_C: -318600536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
