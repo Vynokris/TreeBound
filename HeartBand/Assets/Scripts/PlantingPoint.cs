@@ -22,7 +22,7 @@ public class PlantingPoint : MonoBehaviour
 
     private void Update()
     {
-        if (!WasUsed() || healingAnimTimer > healingAnimDuration) return;
+        if (!WasUsed() || !spriteMask || healingAnimTimer > healingAnimDuration) return;
         healingAnimTimer += Time.deltaTime;
         float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * healingRange;
         spriteMask.transform.localScale = new Vector3(maskSize, maskSize, maskSize);
@@ -58,15 +58,16 @@ public class PlantingPoint : MonoBehaviour
     }
     
     public bool WasUsed() { return used; }
-    public void SetUsed()
+    public void SetUsed(bool shouldHeal = true)
     {
         used = true;
+        if (!shouldHeal) spriteMask = null;
         slates.ForEach(slate => slate.SetUsed());
     }
 
     public bool IsActivated()
     {
-        if (WasUsed()) return false;
+        if (WasUsed() || slates.Count <= 0) return false;
         foreach (PlantingSlate slate in slates) {
             if (!slate.IsActivated()) {
                 return false;

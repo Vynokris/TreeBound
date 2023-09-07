@@ -126,10 +126,10 @@ TextureImporter:
       name: Troncs_spr_0
       rect:
         serializedVersion: 2
-        x: 81
-        y: 64
-        width: 137
-        height: 77
+        x: 79
+        y: 0
+        width: 139
+        height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: Troncs_spr_1
       rect:
         serializedVersion: 2
-        x: 246
-        y: 64
-        width: 287
-        height: 457
+        x: 242
+        y: 0
+        width: 291
+        height: 513
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: Troncs_spr_2
       rect:
         serializedVersion: 2
-        x: 552
-        y: 35
-        width: 261
-        height: 462
+        x: 538
+        y: 0
+        width: 272
+        height: 497
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
