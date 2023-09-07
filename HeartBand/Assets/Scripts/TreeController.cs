@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,91 +17,81 @@ public class TreeController : MonoBehaviour
 {
     private readonly List<PlayerController> players = new();
     
-    [SerializeField] private float maxHealth     = 10;
-    [SerializeField] private float decaySpeed    = 0.1f;
-    [SerializeField] private float pullSpeed     = 0.1f;
-    [SerializeField] private float maxPlayerDist = 4;
-    [SerializeField] private float evolveTime    = 30;
+    [SerializeField] private float maxHealth      = 10;
+    [SerializeField] private float decaySpeed     = 0.1f;
+    [SerializeField] private float pullSpeed      = 0.1f;
+    [SerializeField] private float maxPlayerDist  = 4;
+    [SerializeField] private float healedAreaSize = 5;
+    [SerializeField] private Material         defaultMaterial;
+    [SerializeField] private Material         transitionMaterial;
+    [SerializeField] private List<float>      evolveDurations;
+    [SerializeField] private List<Sprite>     stageSprites;
+    [SerializeField] private List<Color>      playerColors;
+    [SerializeField] private List<GameObject> playerSpritePrefabs;
+    [SerializeField] private List<GameObject> swordPrefabs;
+    [SerializeField] private List<GameObject> shieldPrefabs;
     
     private new SpriteRenderer renderer;
-    private TreeState state    = TreeState.Waiting;
-    private int   growingStage = 0;
-    private float health       = -1;
-    private float evolveTimer  = -1;
+    private     SpriteRenderer transitionRenderer;
+    private new Rigidbody2D    rigidbody;
+    private     SpriteMask     spriteMask;
+    private TreeState state       = TreeState.Waiting;
+    private int   growingStage    = 0;
+    private float health          = -1;
+    private float evolveTimer     = -1;
+    private float transitionTimer = -1;
     private PlantingPoint plantingPoint = null;
     private WaveManager   waveManager;
-    
+
     void Start()
     {
-        renderer    = GetComponent<SpriteRenderer>();
-        waveManager = FindObjectOfType<WaveManager>();
-        health      = maxHealth;
+        renderer           = GetComponent<SpriteRenderer>();
+        transitionRenderer = transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
+        rigidbody          = GetComponent<Rigidbody2D>();
+        spriteMask         = transform.GetChild(0).gameObject.GetComponent<SpriteMask>();
+        waveManager        = FindObjectOfType<WaveManager>();
+        health             = maxHealth;
+        
+        transitionRenderer.enabled  = false;
     }
 
     void Update()
     {
+        UpdateHealingMask();
+        UpdateTransition();
         switch (state)
         {
         case TreeState.Moving:
+            // Plant the tree when all players interact with the planting slates.
+            if (plantingPoint && plantingPoint.IsActivated()) {
+                SetState(TreeState.Planted);
+            }
             CheckHealth();
-            MovingBehavior();
             break;
+        
         case TreeState.Planted:
-            PlantedBehavior();
+            // Update timer and check if evolution is done.
+            evolveTimer -= Time.deltaTime;
+            if (evolveTimer <= 0) {
+                SetState(TreeState.Waiting);
+            }
+            CheckHealth(false);
             break;
+        
         case TreeState.Waiting:
-            CheckHealth();
-            WaitingBehavior();
+            // Start moving once all the players interact with the planting slates.
+            if (plantingPoint && plantingPoint.IsActivated()) {
+                SetState(TreeState.Moving);
+            }
+            CheckHealth(growingStage > 0);
             break;
         }
     }
 
-    private void CheckHealth(bool decay = true)
+    private void FixedUpdate()
     {
-        // Loose health from decay damage and check for game over.
-        if (decay && growingStage > 0) health -= decaySpeed * Time.deltaTime;
-        if (health < 0) {
-            Debug.Log("Tree destroyed!");
-            Destroy(gameObject);
-        }
-    }
-
-    private void SetState(TreeState newState)
-    {
-        state = newState;
-        players.ForEach(player => player.UpdateState(state));
-        switch (state)
-        {
-        case TreeState.Moving:
-            waveManager.StartWave(WaveType.Projectiles);
-            plantingPoint.SetUsed();
-            plantingPoint = null;
-            renderer.color = Color.green;
-            break;
-        case TreeState.Planted:
-            waveManager.EndWave();
-            waveManager.StartWave(WaveType.Enemies);
-            evolveTimer = evolveTime;
-            renderer.color = Color.magenta;
-            break;
-        case TreeState.Waiting:
-            plantingPoint.DeactivateSlates();
-            waveManager.EndWave();
-            growingStage++;
-            evolveTimer = -1;
-            health = maxHealth;
-            renderer.color = Color.red;
-            break;
-        }
-    }
-
-    private void MovingBehavior()
-    {
-        // Plant the tree when all players interact with the planting slates.
-        if (plantingPoint && plantingPoint.IsActivated()) {
-            SetState(TreeState.Planted);
-        }
-
+        if (state != TreeState.Moving) return;
+        
         // Let the players pull the tree.
         Vector2 pullDir = new();
         foreach (PlayerController player in players)
@@ -119,23 +110,70 @@ public class TreeController : MonoBehaviour
             Vector2 treeToPoint = plantingPoint.transform.position - transform.position;
             pullDir += treeToPoint * 2;
         }
-        transform.position += (Vector3)(pullDir * (pullSpeed * Time.deltaTime));
+        rigidbody.velocity = pullDir * pullSpeed;
     }
 
-    private void PlantedBehavior()
+    private void UpdateHealingMask()
     {
-        // Update timer and check if evolution is done.
-        evolveTimer -= Time.deltaTime;
-        if (evolveTimer <= 0) {
-            SetState(TreeState.Waiting);
+        float targetMaskSize = growingStage * healedAreaSize; if (growingStage > 0) targetMaskSize += 1;
+        Vector3 curScale = spriteMask.transform.localScale;
+        spriteMask.transform.localScale = Vector3.Lerp(curScale, new Vector3(targetMaskSize, targetMaskSize, targetMaskSize), 0.5f * Time.deltaTime);
+    }
+
+    private void UpdateTransition()
+    {
+        if (transitionTimer <= 0) return;
+        transitionTimer -= Time.deltaTime;
+        Debug.Log(transitionTimer);
+        renderer          .material.SetFloat("_Fade", 1-transitionTimer);
+        transitionRenderer.material.SetFloat("_Fade", transitionTimer);
+        if (transitionTimer <= 0) {
+            renderer.material = defaultMaterial;
+            transitionRenderer.enabled = false;
         }
     }
 
-    private void WaitingBehavior()
+    private void CheckHealth(bool decay = true)
     {
-        // Start moving once all the players interact with the planting slates.
-        if (plantingPoint && plantingPoint.IsActivated()) {
-            SetState(TreeState.Moving);
+        // Loose health from decay damage and check for game over.
+        if (decay) health -= decaySpeed * Time.deltaTime;
+        if (health < 0) {
+            Debug.Log("Tree destroyed!");
+            this.enabled = false;
+        }
+    }
+
+    private void SetState(TreeState newState)
+    {
+        state = newState;
+        players.ForEach(player => player.UpdateState(state));
+        switch (state)
+        {
+        case TreeState.Moving:
+            waveManager.StartWave(WaveType.Projectiles);
+            plantingPoint.SetUsed(growingStage > 0);
+            plantingPoint = null;
+            break;
+        case TreeState.Planted:
+            rigidbody.velocity = Vector2.zero;
+            waveManager.EndWave();
+            waveManager.StartWave(WaveType.Enemies);
+            evolveTimer = evolveDurations[growingStage];
+            break;
+        case TreeState.Waiting:
+            rigidbody.velocity = Vector2.zero;
+            plantingPoint.DeactivateSlates();
+            waveManager.EndWave();
+            growingStage++;
+            renderer          .sprite  = stageSprites[growingStage];
+            transitionRenderer.sprite  = stageSprites[growingStage-1];
+            renderer.material          = Instantiate(transitionMaterial);
+            renderer.material.SetFloat("_Fade", 0);
+            transitionRenderer.enabled = true;
+            evolveTimer = -1;
+            transitionTimer = 1;
+            health = maxHealth;
+            break;
         }
     }
 
@@ -145,27 +183,17 @@ public class TreeController : MonoBehaviour
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
+        // Spawn player with the right color, shield and sword.
         players.Add(playerInput.gameObject.GetComponent<PlayerController>());
+        int              playerIdx = players.Count-1;
+        PlayerController newPlayer = players.Last();
+        newPlayer.SetColor(playerColors[playerIdx]);
+        newPlayer.SetShield(Instantiate(shieldPrefabs      [playerIdx], newPlayer.transform));
+        newPlayer.SetSword (Instantiate(swordPrefabs       [playerIdx], newPlayer.transform));
+        newPlayer.SetSprite(Instantiate(playerSpritePrefabs[playerIdx], newPlayer.transform));
         
         List<PlantingPoint> plantingPoints = FindObjectsOfType<PlantingPoint>().ToList();
         plantingPoints.ForEach(point => point.UpdateSlateCount(players.Count));
-
-        // TODO: Finalize this.
-        switch (players.Count)
-        {
-        case 1:
-            players[0].GetComponent<SpriteRenderer>().color = Color.red;
-            break;
-        case 2:
-            players[1].GetComponent<SpriteRenderer>().color = Color.blue;
-            break;
-        case 3:
-            players[2].GetComponent<SpriteRenderer>().color = Color.green;
-            break;
-        case 4:
-            players[3].GetComponent<SpriteRenderer>().color = Color.magenta;
-            break;
-        }
     }
 
     void OnPlayerLeft(PlayerInput playerInput)

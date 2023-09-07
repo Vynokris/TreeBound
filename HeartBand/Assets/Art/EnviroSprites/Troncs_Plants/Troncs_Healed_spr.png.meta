@@ -113,10 +113,10 @@ TextureImporter:
       name: Troncs_Healed_spr_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 16
-        width: 167
-        height: 125
+        x: 63
+        y: 1
+        width: 166
+        height: 140
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,9 +134,9 @@ TextureImporter:
       name: Troncs_Healed_spr_1
       rect:
         serializedVersion: 2
-        x: 246
+        x: 236
         y: 0
-        width: 287
+        width: 297
         height: 521
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -155,9 +155,9 @@ TextureImporter:
       name: Troncs_Healed_spr_2
       rect:
         serializedVersion: 2
-        x: 552
+        x: 541
         y: 0
-        width: 265
+        width: 272
         height: 497
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
