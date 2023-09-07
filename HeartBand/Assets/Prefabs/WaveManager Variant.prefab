@@ -65,6 +65,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: enemyStats.Array.data[2].movementSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
       propertyPath: enemyWaves.Array.data[0].waves.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -79,6 +83,38 @@ PrefabInstance:
     - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
       propertyPath: enemyWaves.Array.data[3].waves.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileWaves.Array.data[2].spawnCountMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileWaves.Array.data[3].spawnCountMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileWaves.Array.data[3].spawnCountMin
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileStats.Array.data[1].activationTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileStats.Array.data[2].activationTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileStats.Array.data[1].accelerationTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileStats.Array.data[2].accelerationTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
+      propertyPath: projectileStats.Array.data[3].accelerationTime
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7218730124563823230, guid: 9e5e0eb6d6da7b548b5e78774dadd5f4, type: 3}
       propertyPath: projectileWaves.Array.data[0].waves.Array.size
