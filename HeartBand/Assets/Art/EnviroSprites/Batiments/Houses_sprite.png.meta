@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: House_A
+      name: Houses_sprite_0
       rect:
         serializedVersion: 2
-        x: 85
-        y: 1223
-        width: 920
-        height: 1062
+        x: 164
+        y: 1253
+        width: 553
+        height: 873
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,29 +137,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c12fcc1633e7d8e429361764c5b749a2
-      internalID: -1559362799
+      spriteID: 42cc6af36dfb51144afc305eb7ed1c7d
+      internalID: 1570277597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: House_B
+      name: Houses_sprite_1
       rect:
         serializedVersion: 2
-        x: 1070
-        y: 1204
-        width: 1204
-        height: 1066
+        x: 791
+        y: 1298
+        width: 823
+        height: 714
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdbf002e91401a14ca676744c8ab2306
-      internalID: 1421282805
+      spriteID: 631848c05e11b84419ef50fbfb4abc30
+      internalID: 810493065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Houses_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 1666
+        y: 956
+        width: 952
+        height: 1263
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e951e0b2d3f1314fadb44c7897b6a83
+      internalID: 1317757377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Houses_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 1989
+        y: 1224
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 530ae98c41c7d3f468f7279aa386a743
+      internalID: -403907071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Houses_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 712
+        width: 380
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27e93793a3467824ea1cad2e6554973d
+      internalID: -1429238448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Houses_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 556
+        width: 210
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db261393c1db4134ab60cf0bd5e47e93
+      internalID: -828074014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Houses_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 845
+        width: 260
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cee09ae73e08eb47bab4fb04780ff55
+      internalID: -525077794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Houses_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 761
+        width: 260
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adcc40c3d7313764dad751bdacc3d2bc
+      internalID: 862783740
       vertices: []
       indices: 
       edges: []
@@ -175,8 +301,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      House_A: -1559362799
-      House_B: 1421282805
+      Houses_sprite_0: 1570277597
+      Houses_sprite_1: 810493065
+      Houses_sprite_10: 862783740
+      Houses_sprite_11: -2144535987
+      Houses_sprite_2: 1317757377
+      Houses_sprite_3: -403907071
+      Houses_sprite_4: -1796345273
+      Houses_sprite_5: -864406733
+      Houses_sprite_6: -428207194
+      Houses_sprite_7: -1429238448
+      Houses_sprite_8: -828074014
+      Houses_sprite_9: -525077794
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
