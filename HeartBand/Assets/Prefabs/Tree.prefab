@@ -273,7 +273,7 @@ MonoBehaviour:
   decaySpeed: 0.1
   pullSpeed: 0.4
   maxPlayerDist: 5
-  healedAreaSize: 0.5
+  healedAreaSize: 1
   defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   transitionMaterial: {fileID: 2100000, guid: 0dc8ace9148cda9429d865336fca4aa9, type: 2}
   evolveDurations:
@@ -382,7 +382,7 @@ BoxCollider2D:
   m_Offset: {x: 0.15, y: 0.33}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.47812802, y: 0.14542213}
+    pivot: {x: 0.5000002, y: 0.14650603}
     oldSize: {x: 2.881562, y: 3.44}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
