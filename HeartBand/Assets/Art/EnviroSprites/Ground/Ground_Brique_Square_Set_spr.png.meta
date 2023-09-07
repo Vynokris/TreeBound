@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c85f9bbc9d4fe36469c4113fd41f6f44
+guid: 5f7b4588a2bff124e9384c5a21cfc160
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +121,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Ground_Brique_Square_Set_spr_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 130
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 584caf6e99329bc468fef5c321c4c660
+      internalID: 1483721588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Brique_Square_Set_spr_1
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 130
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10c33023b7450c641846ad7d57db17ce
+      internalID: 1731625990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Brique_Square_Set_spr_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d124c66ef68abc49b5ca178797cf17d
+      internalID: -36455012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Brique_Square_Set_spr_3
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 0
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e4b27b82b77ee0409ec856761af3e07
+      internalID: -841379785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +216,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Ground_Brique_Square_Set_spr_0: 1483721588
+      Ground_Brique_Square_Set_spr_1: 1731625990
+      Ground_Brique_Square_Set_spr_2: -36455012
+      Ground_Brique_Square_Set_spr_3: -841379785
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
