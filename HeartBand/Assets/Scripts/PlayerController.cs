@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue input)
     {
         moveDir = input.Get<Vector2>().normalized;
-        if (moveDir.sqrMagnitude < 1e-3) return;
+        if (!sprite || moveDir.sqrMagnitude < 1e-3) return;
         
         // Face forwards.
         Vector3 curScale = sprite.transform.localScale;

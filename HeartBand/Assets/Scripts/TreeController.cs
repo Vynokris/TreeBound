@@ -28,7 +28,7 @@ public class TreeController : MonoBehaviour
     
     private new SpriteRenderer renderer;
     private new Rigidbody2D    rigidbody;
-    private TreeState state    = TreeState.Waiting;
+    [SerializeField] private TreeState state    = TreeState.Waiting;
     private int   growingStage = 0;
     private float health       = -1;
     private float evolveTimer  = -1;
@@ -117,7 +117,7 @@ public class TreeController : MonoBehaviour
         {
         case TreeState.Moving:
             waveManager.StartWave(WaveType.Projectiles);
-            plantingPoint.SetUsed();
+            plantingPoint.SetUsed(growingStage > 0);
             plantingPoint = null;
             renderer.color = Color.green;
             break;
