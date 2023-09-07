@@ -118,7 +118,7 @@ TextureImporter:
         width: 122
         height: 205
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +139,7 @@ TextureImporter:
         width: 391
         height: 277
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,7 +160,7 @@ TextureImporter:
         width: 133
         height: 338
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
         width: 134
         height: 103
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,6 +189,90 @@ TextureImporter:
       bones: []
       spriteID: badc74c4705e4f04da056d17311caf83
       internalID: -1150605838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocks2_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 429
+        width: 204
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55941691a56cb5e41a928aa22145841b
+      internalID: 2132811588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocks2_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 339
+        width: 138
+        height: 389
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c75bd43e6dd15c40b51c3cd7a2873e3
+      internalID: 632487236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocks2_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 496
+        width: 142
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e75865e679b4ff24189cfbdaed060c2e
+      internalID: 2128493266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rocks2_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 3
+        width: 246
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f19daaba2940ea478252932531b222f
+      internalID: -1856754163
       vertices: []
       indices: 
       edges: []
@@ -206,6 +290,10 @@ TextureImporter:
     nameFileIdTable:
       Menhir: 1296528387
       MidRock: -997608922
+      Rocks2_sprite_0: 2132811588
+      Rocks2_sprite_1: 632487236
+      Rocks2_sprite_2: 2128493266
+      Rocks2_sprite_3: -1856754163
       Smallrocks: -1150605838
       TallRock: -1083943875
   mipmapLimitGroupName: 
