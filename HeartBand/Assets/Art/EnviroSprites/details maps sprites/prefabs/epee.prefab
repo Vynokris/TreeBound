@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 336388611998112338}
   - component: {fileID: 1027305602823319406}
   m_Layer: 0
-  m_Name: epee
+  m_Name: epee_healed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &336388611998112338
 Transform:
   m_ObjectHideFlags: 0
@@ -199,5 +199,5 @@ Transform:
   - {fileID: 336388611998112338}
   - {fileID: 5333498413509491709}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
