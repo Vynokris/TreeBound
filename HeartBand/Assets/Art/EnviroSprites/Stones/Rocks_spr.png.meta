@@ -144,7 +144,7 @@ TextureImporter:
         width: 426
         height: 409
       alignment: 9
-      pivot: {x: 0.47477552, y: 0.5}
+      pivot: {x: 0.5431465, y: 0.4252265}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,12 +160,12 @@ TextureImporter:
       name: Rocks_Main_spr
       rect:
         serializedVersion: 2
-        x: 859
-        y: 11
+        x: 890
+        y: 26
         width: 701
         height: 1054
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.42728806, y: 0.22918701}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

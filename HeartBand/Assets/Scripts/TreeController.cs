@@ -35,13 +35,14 @@ public class TreeController : MonoBehaviour
     private     SpriteRenderer transitionRenderer;
     private new Rigidbody2D    rigidbody;
     private     SpriteMask     spriteMask;
+    private     ParticleSystem plantingParticles;
+    private     PlantingPoint  plantingPoint = null;
+    private     WaveManager    waveManager;
     private TreeState state       = TreeState.Waiting;
     private int   growingStage    = 0;
     private float health          = -1;
     private float evolveTimer     = -1;
     private float transitionTimer = -1;
-    private PlantingPoint plantingPoint = null;
-    private WaveManager   waveManager;
 
     void Start()
     {
@@ -49,10 +50,12 @@ public class TreeController : MonoBehaviour
         transitionRenderer = transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
         rigidbody          = GetComponent<Rigidbody2D>();
         spriteMask         = transform.GetChild(0).gameObject.GetComponent<SpriteMask>();
+        plantingParticles  = transform.GetChild(2).GetChild(0).gameObject.GetComponent<ParticleSystem>();
         waveManager        = FindObjectOfType<WaveManager>();
         health             = maxHealth;
         
-        transitionRenderer.enabled  = false;
+        transitionRenderer.enabled = false;
+        plantingParticles.Stop();
     }
 
     void Update()
@@ -157,6 +160,7 @@ public class TreeController : MonoBehaviour
             rigidbody.velocity = Vector2.zero;
             waveManager.EndWave();
             waveManager.StartWave(WaveType.Enemies);
+            plantingParticles.Play();
             evolveTimer = evolveDurations[growingStage];
             break;
         case TreeState.Waiting:
@@ -186,6 +190,7 @@ public class TreeController : MonoBehaviour
         players.Add(playerInput.gameObject.GetComponent<PlayerController>());
         int              playerIdx = players.Count-1;
         PlayerController newPlayer = players.Last();
+        newPlayer.transform.position = transform.position;
         newPlayer.SetColor(playerColors[playerIdx]);
         newPlayer.SetSprite(Instantiate(playerSpritePrefabs[playerIdx], newPlayer.transform.GetChild(0)));
         newPlayer.SetShield(Instantiate(shieldPrefabs      [playerIdx], newPlayer.transform));

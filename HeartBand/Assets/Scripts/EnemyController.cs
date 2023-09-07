@@ -18,15 +18,17 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject deathPrefab;
     
     private float attackTimer = 0;
+    private Animator       animator;
     private TreeController tree;
     private WaveManager    waveManager;
     
     void Start()
     {
+        animator    = transform.GetChild(0).gameObject.GetComponent<Animator>();
         tree        = FindObjectOfType<TreeController>();
         waveManager = FindObjectOfType<WaveManager>();
         
-        // Spawn randomly around the screen.
+        // Spawn randomly around the screen but not above the tree.
         Camera  cam        = FindObjectOfType<Camera>();
         float   orthoSize  = cam.orthographicSize;
         Vector2 camExtent  = new Vector2(orthoSize, orthoSize * Screen.width / Screen.height);
@@ -50,6 +52,7 @@ public class EnemyController : MonoBehaviour
             if (attackTimer >= stats.attackFrequency)
             {
                 attackTimer = 0;
+                animator.SetTrigger("Attacking");
                 tree.OnDamage(stats.attackDamage);
             }
         }

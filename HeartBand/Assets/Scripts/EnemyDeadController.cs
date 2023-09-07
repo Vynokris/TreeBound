@@ -11,8 +11,10 @@ public class EnemyDeadController : MonoBehaviour
     
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        dissolveMat = Instantiate(dissolveMat);
         dissolveMat.SetFloat("_Fade", timer);
+        DeepCopyMaterial(transform);
     }
 
     void Update()
@@ -21,6 +23,21 @@ public class EnemyDeadController : MonoBehaviour
         timer -= Time.deltaTime;
         dissolveMat.SetFloat("_Fade", timer);
         if (timer < 0)
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
+    }
+
+    private void DeepCopyMaterial(Transform objTransform)
+    {
+        // Set material to dissolveMat copy.
+        SpriteRenderer spriteRenderer = objTransform.gameObject.GetComponent<SpriteRenderer>();
+        if (spriteRenderer) {
+            spriteRenderer.material = dissolveMat;
+        }
+        
+        // Deep copy children material.
+        int children = objTransform.childCount;
+        for (int i = 0; i < children; i++) {
+            DeepCopyMaterial(objTransform.GetChild(i));
+        }
     }
 }
