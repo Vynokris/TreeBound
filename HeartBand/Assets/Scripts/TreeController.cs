@@ -46,10 +46,11 @@ public class TreeController : MonoBehaviour
             MovingBehavior();
             break;
         case TreeState.Planted:
+            CheckHealth(false);
             PlantedBehavior();
             break;
         case TreeState.Waiting:
-            CheckHealth();
+            CheckHealth(growingStage > 0);
             WaitingBehavior();
             break;
         }
@@ -58,7 +59,7 @@ public class TreeController : MonoBehaviour
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
-        if (decay && growingStage > 0) health -= decaySpeed * Time.deltaTime;
+        if (decay) health -= decaySpeed * Time.deltaTime;
         if (health < 0) {
             Debug.Log("Tree destroyed!");
             Destroy(gameObject);
