@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 6172766015415802619}
   - component: {fileID: 2492334573841646296}
   - component: {fileID: 4078760335746137812}
+  - component: {fileID: 8295786243201124014}
   - component: {fileID: 5823245353893740547}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree
   m_TagString: Respawn
   m_Icon: {fileID: 0}
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7195171838735000948
 SpriteRenderer:
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0.44482434, g: 0.8018868, b: 0.39842167, a: 1}
   m_FlipX: 0
@@ -105,6 +106,18 @@ MonoBehaviour:
   pullSpeed: 0.4
   maxPlayerDist: 5
   evolveTime: 30
+  playerColors:
+  - {r: 0.5254902, g: 0.86274517, b: 0.8313726, a: 1}
+  - {r: 0.78823537, g: 0.9333334, b: 0.6117647, a: 1}
+  - {r: 0.9960785, g: 0.7254902, b: 0.9921569, a: 1}
+  swordPrefabs:
+  - {fileID: 1006583177789051681, guid: 51cfb2f597aaf22419c513cd5b78d84f, type: 3}
+  - {fileID: 1006583177789051681, guid: e5176745777f0474cae848e5889c4922, type: 3}
+  - {fileID: 1006583177789051681, guid: 8e8318024ce91ba4394975f37d4174df, type: 3}
+  shieldPrefabs:
+  - {fileID: 7669092015783066045, guid: a051ee0df1dcf0f4595b5d79463e37ef, type: 3}
+  - {fileID: 6885302486360861127, guid: f2bcebf093ee2134db1c9d4e2c725e71, type: 3}
+  - {fileID: 6800480995750819972, guid: 84fd73dc7577d5246813641decb878ce, type: 3}
 --- !u!114 &2492334573841646296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +210,51 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!61 &8295786243201124014
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700201896016530641}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.24}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.28866667}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.1}
+  m_EdgeRadius: 0
 --- !u!50 &5823245353893740547
 Rigidbody2D:
   serializedVersion: 4
@@ -205,22 +263,22 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8700201896016530641}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
