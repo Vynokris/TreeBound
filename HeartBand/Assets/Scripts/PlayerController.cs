@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        sprite    = transform.GetChild(0).gameObject;
         tree      = FindObjectOfType<TreeController>();
         health    = maxHealth;
         
@@ -121,6 +120,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetSprite(GameObject newSprite) { sprite = newSprite; }
     public void SetShield(GameObject newShield) { shield = newShield; shield.SetActive(false); }
     public void SetSword (GameObject newSword)
     {

@@ -24,6 +24,7 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float healedAreaSize = 5;
     [SerializeField] private List<float>      evolveTimes;
     [SerializeField] private List<Color>      playerColors;
+    [SerializeField] private List<GameObject> playerSpritePrefabs;
     [SerializeField] private List<GameObject> swordPrefabs;
     [SerializeField] private List<GameObject> shieldPrefabs;
     
@@ -164,8 +165,9 @@ public class TreeController : MonoBehaviour
         int              playerIdx = players.Count-1;
         PlayerController newPlayer = players.Last();
         newPlayer.SetColor(playerColors[playerIdx]);
-        newPlayer.SetShield(Instantiate(shieldPrefabs[playerIdx], newPlayer.transform));
-        newPlayer.SetSword (Instantiate(swordPrefabs [playerIdx], newPlayer.transform));
+        newPlayer.SetShield(Instantiate(shieldPrefabs      [playerIdx], newPlayer.transform));
+        newPlayer.SetSword (Instantiate(swordPrefabs       [playerIdx], newPlayer.transform));
+        newPlayer.SetSprite(Instantiate(playerSpritePrefabs[playerIdx], newPlayer.transform));
         
         List<PlantingPoint> plantingPoints = FindObjectsOfType<PlantingPoint>().ToList();
         plantingPoints.ForEach(point => point.UpdateSlateCount(players.Count));

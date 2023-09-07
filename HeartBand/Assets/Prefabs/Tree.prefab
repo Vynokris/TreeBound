@@ -199,6 +199,10 @@ MonoBehaviour:
   - {r: 0.5254902, g: 0.86274517, b: 0.8313726, a: 1}
   - {r: 0.78823537, g: 0.9333334, b: 0.6117647, a: 1}
   - {r: 0.9960785, g: 0.7254902, b: 0.9921569, a: 1}
+  playerSpritePrefabs:
+  - {fileID: 1462772466219255234, guid: 208ca635cbd462e4080e0d79b62015a4, type: 3}
+  - {fileID: 7103032874274270416, guid: db8e792695ccfbb4fa155779880bec44, type: 3}
+  - {fileID: 1238829977046157683, guid: 9e62f0c833f824e4bb44ade28eb12c90, type: 3}
   swordPrefabs:
   - {fileID: 1006583177789051681, guid: 51cfb2f597aaf22419c513cd5b78d84f, type: 3}
   - {fileID: 1006583177789051681, guid: e5176745777f0474cae848e5889c4922, type: 3}
