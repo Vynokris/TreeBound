@@ -17,18 +17,20 @@ public class TreeController : MonoBehaviour
 {
     private readonly List<PlayerController> players = new();
     
-    [SerializeField] private float maxHealth     = 10;
-    [SerializeField] private float decaySpeed    = 0.1f;
-    [SerializeField] private float pullSpeed     = 0.1f;
-    [SerializeField] private float maxPlayerDist = 4;
-    [SerializeField] private float evolveTime    = 30;
+    [SerializeField] private float maxHealth      = 10;
+    [SerializeField] private float decaySpeed     = 0.1f;
+    [SerializeField] private float pullSpeed      = 0.1f;
+    [SerializeField] private float maxPlayerDist  = 4;
+    [SerializeField] private float healedAreaSize = 5;
+    [SerializeField] private List<float>      evolveTimes;
     [SerializeField] private List<Color>      playerColors;
     [SerializeField] private List<GameObject> swordPrefabs;
     [SerializeField] private List<GameObject> shieldPrefabs;
     
     private new SpriteRenderer renderer;
     private new Rigidbody2D    rigidbody;
-    [SerializeField] private TreeState state    = TreeState.Waiting;
+    private     SpriteMask     spriteMask;
+    private TreeState state    = TreeState.Waiting;
     private int   growingStage = 0;
     private float health       = -1;
     private float evolveTimer  = -1;
@@ -39,12 +41,14 @@ public class TreeController : MonoBehaviour
     {
         renderer    = GetComponent<SpriteRenderer>();
         rigidbody   = GetComponent<Rigidbody2D>();
+        spriteMask  = transform.GetChild(0).gameObject.GetComponent<SpriteMask>();
         waveManager = FindObjectOfType<WaveManager>();
         health      = maxHealth;
     }
 
     void Update()
     {
+        UpdateHealingMask();
         switch (state)
         {
         case TreeState.Moving:
@@ -99,6 +103,13 @@ public class TreeController : MonoBehaviour
         rigidbody.velocity = pullDir * pullSpeed;
     }
 
+    private void UpdateHealingMask()
+    {
+        float targetMaskSize = growingStage * healedAreaSize; if (growingStage > 0) targetMaskSize += 1;
+        Vector3 curScale = spriteMask.transform.localScale;
+        spriteMask.transform.localScale = Vector3.Lerp(curScale, new Vector3(targetMaskSize, targetMaskSize, targetMaskSize), 0.5f * Time.deltaTime);
+    }
+
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
@@ -120,12 +131,14 @@ public class TreeController : MonoBehaviour
             plantingPoint.SetUsed(growingStage > 0);
             plantingPoint = null;
             renderer.color = Color.green;
+            if (growingStage <= 0)
+                growingStage++;
             break;
         case TreeState.Planted:
             rigidbody.velocity = Vector2.zero;
             waveManager.EndWave();
             waveManager.StartWave(WaveType.Enemies);
-            evolveTimer = evolveTime;
+            evolveTimer = evolveTimes[growingStage-1];
             renderer.color = Color.magenta;
             break;
         case TreeState.Waiting:
