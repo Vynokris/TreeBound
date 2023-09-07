@@ -22,34 +22,43 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float pullSpeed      = 0.1f;
     [SerializeField] private float maxPlayerDist  = 4;
     [SerializeField] private float healedAreaSize = 5;
-    [SerializeField] private List<float>      evolveTimes;
+    [SerializeField] private Material         defaultMaterial;
+    [SerializeField] private Material         transitionMaterial;
+    [SerializeField] private List<float>      evolveDurations;
+    [SerializeField] private List<Sprite>     stageSprites;
     [SerializeField] private List<Color>      playerColors;
     [SerializeField] private List<GameObject> playerSpritePrefabs;
     [SerializeField] private List<GameObject> swordPrefabs;
     [SerializeField] private List<GameObject> shieldPrefabs;
     
     private new SpriteRenderer renderer;
+    private     SpriteRenderer transitionRenderer;
     private new Rigidbody2D    rigidbody;
     private     SpriteMask     spriteMask;
-    private TreeState state    = TreeState.Waiting;
-    private int   growingStage = 0;
-    private float health       = -1;
-    private float evolveTimer  = -1;
+    private TreeState state       = TreeState.Waiting;
+    private int   growingStage    = 0;
+    private float health          = -1;
+    private float evolveTimer     = -1;
+    private float transitionTimer = -1;
     private PlantingPoint plantingPoint = null;
     private WaveManager   waveManager;
-    
+
     void Start()
     {
-        renderer    = GetComponent<SpriteRenderer>();
-        rigidbody   = GetComponent<Rigidbody2D>();
-        spriteMask  = transform.GetChild(0).gameObject.GetComponent<SpriteMask>();
-        waveManager = FindObjectOfType<WaveManager>();
-        health      = maxHealth;
+        renderer           = GetComponent<SpriteRenderer>();
+        transitionRenderer = transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
+        rigidbody          = GetComponent<Rigidbody2D>();
+        spriteMask         = transform.GetChild(0).gameObject.GetComponent<SpriteMask>();
+        waveManager        = FindObjectOfType<WaveManager>();
+        health             = maxHealth;
+        
+        transitionRenderer.enabled  = false;
     }
 
     void Update()
     {
         UpdateHealingMask();
+        UpdateTransition();
         switch (state)
         {
         case TreeState.Moving:
@@ -111,6 +120,19 @@ public class TreeController : MonoBehaviour
         spriteMask.transform.localScale = Vector3.Lerp(curScale, new Vector3(targetMaskSize, targetMaskSize, targetMaskSize), 0.5f * Time.deltaTime);
     }
 
+    private void UpdateTransition()
+    {
+        if (transitionTimer <= 0) return;
+        transitionTimer -= Time.deltaTime;
+        Debug.Log(transitionTimer);
+        renderer          .material.SetFloat("_Fade", 1-transitionTimer);
+        transitionRenderer.material.SetFloat("_Fade", transitionTimer);
+        if (transitionTimer <= 0) {
+            renderer.material = defaultMaterial;
+            transitionRenderer.enabled = false;
+        }
+    }
+
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
@@ -131,25 +153,26 @@ public class TreeController : MonoBehaviour
             waveManager.StartWave(WaveType.Projectiles);
             plantingPoint.SetUsed(growingStage > 0);
             plantingPoint = null;
-            renderer.color = Color.green;
-            if (growingStage <= 0)
-                growingStage++;
             break;
         case TreeState.Planted:
             rigidbody.velocity = Vector2.zero;
             waveManager.EndWave();
             waveManager.StartWave(WaveType.Enemies);
-            evolveTimer = evolveTimes[growingStage-1];
-            renderer.color = Color.magenta;
+            evolveTimer = evolveDurations[growingStage];
             break;
         case TreeState.Waiting:
             rigidbody.velocity = Vector2.zero;
             plantingPoint.DeactivateSlates();
             waveManager.EndWave();
             growingStage++;
+            renderer          .sprite  = stageSprites[growingStage];
+            transitionRenderer.sprite  = stageSprites[growingStage-1];
+            renderer.material          = Instantiate(transitionMaterial);
+            renderer.material.SetFloat("_Fade", 0);
+            transitionRenderer.enabled = true;
             evolveTimer = -1;
+            transitionTimer = 1;
             health = maxHealth;
-            renderer.color = Color.red;
             break;
         }
     }

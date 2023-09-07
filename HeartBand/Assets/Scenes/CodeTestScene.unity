@@ -1294,16 +1294,12 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2118541298378606585, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2118541298378606585, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.2799997
+      value: -2.41
       objectReference: {fileID: 0}
     - target: {fileID: 2118541298378606585, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2118541298378606585, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1336,6 +1332,10 @@ PrefabInstance:
     - target: {fileID: 2118541298378606585, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172766015415802619, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
+      propertyPath: evolveDurations.Array.data[0]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8700201896016530641, guid: e6ea8f4c2690cd64299dd5b6707a8000, type: 3}
       propertyPath: m_Name
