@@ -35,6 +35,10 @@ public class ProjectileController : MonoBehaviour
         Vector2 camExtent = new Vector2(orthoSize, orthoSize * Screen.width / Screen.height);
         float   randAngle = Random.Range(0f, Mathf.PI*2);
         transform.position = new Vector3(Mathf.Cos(randAngle) * camExtent.x - 2, Mathf.Sin(randAngle) * camExtent.y - 2, 0) + new Vector3(cam.transform.position.x, cam.transform.position.y, 0);
+        
+        // Rotate towards the tree.
+        Vector2 treeDir = ((Vector2)(tree.transform.position - transform.position)).normalized;
+        transform.localEulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.down, treeDir));
     }
 
     void Update()
@@ -53,6 +57,7 @@ public class ProjectileController : MonoBehaviour
 
         if (movementSpeed > 0)
         {
+            // Explode the projectile if close enough to tree, make it move towards the tree in other cases.
             Vector2 projectileToTree = tree.transform.position - transform.position;
             if (projectileToTree.magnitude < attackDistance)
             {
