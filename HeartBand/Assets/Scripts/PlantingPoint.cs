@@ -13,6 +13,7 @@ public class PlantingPoint : MonoBehaviour
     [SerializeField] private AnimationCurve healingAnimCurve;
     [SerializeField] private float          slateDistance = 8;
     [SerializeField] private bool           isFinalPoint = false;
+    [SerializeField] private GameObject     winAnimation;
     
     private List<PlantingSlate> slates = new();
     private SpriteMask spriteMask;
@@ -30,7 +31,7 @@ public class PlantingPoint : MonoBehaviour
     {
         if (!used || !spriteMask || healingAnimTimer > healingAnimDuration) return;
         healingAnimTimer += Time.deltaTime;
-        float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * (isFinalPoint ? healingRange : 300);
+        float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * (isFinalPoint ? 300 : healingRange);
         spriteMask.transform.localScale = new Vector3(maskSize, maskSize, maskSize);
     }
 
@@ -75,9 +76,8 @@ public class PlantingPoint : MonoBehaviour
         used = true;
         if (!shouldHeal) spriteMask = null;
         slates.ForEach(slate => slate.SetUsed());
-        if (isFinalPoint)
-        {
-            GameObject.Find("WinScreenAnimation").SetActive(true);
+        if (isFinalPoint && winAnimation) {
+            winAnimation.SetActive(true);
         }
     }
 
