@@ -23,6 +23,7 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float pullSpeed      = 0.1f;
     [SerializeField] private float maxPlayerDist  = 4;
     [SerializeField] private float healedAreaSize = 5;
+    [SerializeField] private AnimationCurve   damageFeedbackCurve;
     [SerializeField] private Slider           healthBar;
     [SerializeField] private Material         defaultMaterial;
     [SerializeField] private Material         transitionMaterial;
@@ -40,11 +41,12 @@ public class TreeController : MonoBehaviour
     private     ParticleSystem plantingParticles;
     private     PlantingPoint  plantingPoint = null;
     private     WaveManager    waveManager;
-    private TreeState state       = TreeState.Waiting;
-    private int   growingStage    = 0;
-    private float health          = -1;
-    private float evolveTimer     = -1;
-    private float transitionTimer = -1;
+    private TreeState state           = TreeState.Waiting;
+    private int   growingStage        = 0;
+    private float health              = -1;
+    private float damageFeedbackTimer = -1;
+    private float evolveTimer         = -1;
+    private float transitionTimer     = -1;
 
     void Start()
     {
@@ -64,6 +66,7 @@ public class TreeController : MonoBehaviour
     {
         UpdateHealingMask();
         UpdateTransition();
+        UpdateDamageFeedback();
         switch (state)
         {
         case TreeState.Moving:
@@ -138,6 +141,16 @@ public class TreeController : MonoBehaviour
         }
     }
 
+    private void UpdateDamageFeedback()
+    {
+        if (damageFeedbackTimer <= 0) return;
+        damageFeedbackTimer -= Time.deltaTime;
+        renderer.material.SetFloat("_Fade", damageFeedbackCurve.Evaluate(1-damageFeedbackTimer));
+        if (damageFeedbackTimer <= 0) {
+            renderer.material = defaultMaterial;
+        }
+    }
+
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
@@ -147,7 +160,7 @@ public class TreeController : MonoBehaviour
         }
         if (health < 0) {
             Debug.Log("Tree destroyed!");
-            this.enabled = false;
+            enabled = false;
         }
     }
 
@@ -187,8 +200,16 @@ public class TreeController : MonoBehaviour
     }
 
     public TreeState GetState() { return state; }
-    public void OnDamage(float value) { health -= value; if (healthBar) healthBar.value = health / maxHealth; }
+
     public void OnHeal  (float value) { health += value; if (healthBar) healthBar.value = health / maxHealth; }
+    public void OnDamage(float value)
+    {
+        health -= value; 
+        if (healthBar) healthBar.value = health / maxHealth; 
+        damageFeedbackTimer = 1;
+        renderer.material   = transitionMaterial;
+        renderer.material.SetFloat("_Fade", 0);
+    }
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
