@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookDir;
     
     private new Rigidbody2D   rigidbody;
+    private     AudioSource   audioSource;
     private GameObject        sprite;
     private GameObject        shield;
     private GameObject        sword;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody    = GetComponent<Rigidbody2D>();
+        audioSource  = GetComponent<AudioSource>();
         lineRenderer = GetComponent<LineRenderer>();
         tree         = FindObjectOfType<TreeController>();
         health       = maxHealth;
@@ -219,6 +221,7 @@ public class PlayerController : MonoBehaviour
         swordAnimator.enabled = true;
         swordTrails.ForEach(trail => trail.SetActive(true));
         attackTimer = swordAnimator.GetCurrentAnimatorStateInfo(0).length;
+        audioSource.Play();
     }
 
     public void OnInteract(InputValue input)
