@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlantingPoint : MonoBehaviour
 {
@@ -66,12 +67,13 @@ public class PlantingPoint : MonoBehaviour
         }
     }
     
-    public bool WasUsed() { return (isFinalPoint && tree.GetGrowingStage() < 4) || used; }
+    public bool WasUsed() { return (isFinalPoint && tree.GetGrowingStage() < 3) || used; }
     public void SetUsed(bool shouldHeal = true)
     {
         used = true;
         if (!shouldHeal) spriteMask = null;
         slates.ForEach(slate => slate.SetUsed());
+        if (isFinalPoint) SceneManager.LoadScene("Victory");
     }
 
     public bool IsActivated()

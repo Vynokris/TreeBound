@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum TreeState
@@ -42,7 +43,7 @@ public class TreeController : MonoBehaviour
     private     PlantingPoint  plantingPoint = null;
     private     WaveManager    waveManager;
     private TreeState state           = TreeState.Waiting;
-    private int   growingStage        = 0;
+    private int   growingStage        = 3;
     private float health              = -1;
     private float damageFeedbackTimer = -1;
     private float evolveTimer         = -1;
@@ -91,7 +92,7 @@ public class TreeController : MonoBehaviour
             if (plantingPoint && plantingPoint.IsActivated()) {
                 SetState(TreeState.Moving);
             }
-            CheckHealth(growingStage > 0);
+            CheckHealth(growingStage > 0 && growingStage < 4);
             break;
         }
     }
@@ -161,6 +162,7 @@ public class TreeController : MonoBehaviour
         if (health < 0) {
             Debug.Log("Tree destroyed!");
             enabled = false;
+            SceneManager.LoadScene("GameOver");
         }
     }
 
