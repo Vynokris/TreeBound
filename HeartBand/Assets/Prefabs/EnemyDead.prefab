@@ -93,6 +93,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7301479580130008555, guid: 691356e743399754197df3c9b9dab326, type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8272428244783389928, guid: 691356e743399754197df3c9b9dab326, type: 3}
       propertyPath: m_Name
       value: EnnemyDeathParticle
