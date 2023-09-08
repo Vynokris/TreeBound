@@ -31,9 +31,11 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float maxPlayerDist  = 4;
     [SerializeField] private float healedAreaSize = 5;
     [SerializeField] private AnimationCurve   damageFeedbackCurve;
+    [SerializeField] private Animator         transitionAnimator;
     [SerializeField] private Slider           healthBar;
     [SerializeField] private Material         defaultMaterial;
     [SerializeField] private Material         transitionMaterial;
+    [SerializeField] private GameObject       virtualCamera;
     [SerializeField] private List<float>      evolveDurations;
     [SerializeField] private List<Sprite>     stageSprites;
     [SerializeField] private List<Color>      playerColors;
@@ -52,11 +54,12 @@ public class TreeController : MonoBehaviour
     private     AudioSource    audioSource;
     private Dictionary<string, AudioClip> soundsDict;
     private TreeState state           = TreeState.Waiting;
-    private int   growingStage        = 0;
+    private int   growingStage        = 3;
     private float health              = -1;
     private float damageFeedbackTimer = -1;
     private float evolveTimer         = -1;
     private float transitionTimer     = -1;
+    private float gameOverTimer       = -1;
 
     void Start()
     {
@@ -71,6 +74,7 @@ public class TreeController : MonoBehaviour
         
         transitionRenderer.enabled = false;
         plantingParticles.Stop();
+        virtualCamera.SetActive(false);
         
         soundsDict = new(sounds.Count);
         foreach (NamedAudioClip clip in sounds) {
@@ -80,9 +84,12 @@ public class TreeController : MonoBehaviour
 
     void Update()
     {
+        UpdateGameOverTimer();
+        if (gameOverTimer > 0) return;
         UpdateHealingMask();
         UpdateTransition();
         UpdateDamageFeedback();
+        
         switch (state)
         {
         case TreeState.Moving:
@@ -167,17 +174,30 @@ public class TreeController : MonoBehaviour
         }
     }
 
+    private void UpdateGameOverTimer()
+    {
+        if (gameOverTimer <= 0) return;
+        gameOverTimer -= Time.deltaTime;
+        renderer.material.SetFloat("_Fade", gameOverTimer);
+        if (gameOverTimer <= 0) {
+            SceneManager.LoadScene("GameOver");
+        }
+    }
+
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
+        if (gameOverTimer > 0) return;
         if (decay) {
             health -= decaySpeed * Time.deltaTime;
             if (healthBar) healthBar.value = health / maxHealth;
         }
         if (health < 0) {
             Debug.Log("Tree destroyed!");
-            enabled = false;
-            SceneManager.LoadScene("GameOver");
+            gameOverTimer = 1;
+            renderer.material = transitionMaterial;
+            renderer.material.SetFloat("_Fade", 1);
+            transitionAnimator.SetBool("Blackout", true);
         }
     }
 
@@ -194,6 +214,7 @@ public class TreeController : MonoBehaviour
             audioSource.Stop();
             audioSource.clip = soundsDict["Tree_Rip"];
             audioSource.Play();
+            virtualCamera.SetActive(true);
             break;
         case TreeState.Planted:
             rigidbody.velocity = Vector2.zero;
@@ -201,6 +222,7 @@ public class TreeController : MonoBehaviour
             waveManager.StartWave(WaveType.Enemies);
             plantingParticles.Play();
             evolveTimer = evolveDurations[growingStage];
+            virtualCamera.SetActive(false);
             audioSource.Stop();
             audioSource.clip = soundsDict["Tree_Drop"];
             audioSource.Play();
