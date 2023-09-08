@@ -200,6 +200,7 @@ public class TreeController : MonoBehaviour
     }
 
     public TreeState GetState() { return state; }
+    public int       GetGrowingStage() { return growingStage; }
 
     public void OnHeal  (float value) { health += value; if (healthBar) healthBar.value = health / maxHealth; }
     public void OnDamage(float value)
