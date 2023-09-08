@@ -138,14 +138,16 @@ public class WaveManager : MonoBehaviour
     {
         int idx = enemies.FindIndex(enemyController => enemyController == enemy);
         Destroy(enemy.gameObject);
-        enemies.RemoveAt(idx);
+        if (idx < enemies.Count)
+            enemies.RemoveAt(idx);
     }
 
     public void DestroyProjectile(ProjectileController projectile)
     {
         int idx = projectiles.FindIndex(projectileController => projectileController == projectile);
         Destroy(projectile.gameObject);
-        projectiles.RemoveAt(idx);
+        if (idx < projectiles.Count)
+            projectiles.RemoveAt(idx);
     }
 
     public void EndWave()
@@ -155,14 +157,22 @@ public class WaveManager : MonoBehaviour
         case WaveType.Enemies:
             enemies.ForEach(enemy => Destroy(enemy.gameObject));
             enemies.Clear();
-            enemyWaves.RemoveAt(0);
-            enemyStats.RemoveAt(0);
+            if (enemyWaves.Count > 0 && enemyStats.Count > 0)
+            {
+                enemyWaves.RemoveAt(0);
+                enemyStats.RemoveAt(0);
+            }
+
             break;
         case WaveType.Projectiles:
             projectiles.ForEach(projectile => Destroy(projectile.gameObject));
             projectiles.Clear();
-            projectileWaves.RemoveAt(0);
-            projectileStats.RemoveAt(0);
+            if (projectileWaves.Count > 0 && projectileStats.Count > 0)
+            {
+                projectileWaves.RemoveAt(0);
+                projectileStats.RemoveAt(0);
+            }
+
             break;
         }
         currentWaveType = WaveType.None;
