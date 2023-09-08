@@ -30,7 +30,7 @@ public class PlantingPoint : MonoBehaviour
     {
         if (!used || !spriteMask || healingAnimTimer > healingAnimDuration) return;
         healingAnimTimer += Time.deltaTime;
-        float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * healingRange;
+        float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * (isFinalPoint ? healingRange : 300);
         spriteMask.transform.localScale = new Vector3(maskSize, maskSize, maskSize);
     }
 
@@ -75,7 +75,10 @@ public class PlantingPoint : MonoBehaviour
         used = true;
         if (!shouldHeal) spriteMask = null;
         slates.ForEach(slate => slate.SetUsed());
-        if (isFinalPoint) SceneManager.LoadScene("Victory");
+        if (isFinalPoint)
+        {
+            GameObject.Find("WinScreenAnimation").SetActive(true);
+        }
     }
 
     public bool IsActivated()
