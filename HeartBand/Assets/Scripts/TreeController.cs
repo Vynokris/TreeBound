@@ -54,7 +54,7 @@ public class TreeController : MonoBehaviour
     private     AudioSource    audioSource;
     private Dictionary<string, AudioClip> soundsDict;
     private TreeState state           = TreeState.Waiting;
-    private int   growingStage        = 3;
+    private int   growingStage        = 2;
     private float health              = -1;
     private float damageFeedbackTimer = -1;
     private float evolveTimer         = -1;

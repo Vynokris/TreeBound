@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -67,6 +68,7 @@ public class PlantingPoint : MonoBehaviour
         }
     }
     
+    public bool IsFinalPoint() { return isFinalPoint; }
     public bool WasUsed() { return (isFinalPoint && tree.GetGrowingStage() < 3) || used; }
     public void SetUsed(bool shouldHeal = true)
     {

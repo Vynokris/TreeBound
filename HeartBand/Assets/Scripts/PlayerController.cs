@@ -23,12 +23,14 @@ public class PlayerController : MonoBehaviour
     private float   respawnTimer = 0;
     private Vector2 moveDir;
     private Vector2 lookDir;
+    private bool    isFirstTimeWithSword = true;
     
     private new Rigidbody2D   rigidbody;
     private     AudioSource   audioSource;
     private GameObject        sprite;
     private GameObject        shield;
     private GameObject        sword;
+    private GameObject        attackButton;
     private CapsuleCollider2D swordCollider;
     private Animator          swordAnimator;
     private List<GameObject>  swordTrails;
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         lineRenderer.enabled = false;
         
         transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+        attackButton = transform.GetChild(2).gameObject;
     }
 
     private void FixedUpdate()
@@ -184,6 +187,8 @@ public class PlayerController : MonoBehaviour
             shield.SetActive(false);
             sword .SetActive(true);
             lineRenderer.enabled = false;
+            if (isFirstTimeWithSword)
+                attackButton.SetActive(true);
             break;
         case TreeState.Waiting:
             shield.SetActive(false);
@@ -222,6 +227,11 @@ public class PlayerController : MonoBehaviour
         swordTrails.ForEach(trail => trail.SetActive(true));
         attackTimer = swordAnimator.GetCurrentAnimatorStateInfo(0).length;
         audioSource.Play();
+        if (isFirstTimeWithSword)
+        {
+            isFirstTimeWithSword = false;
+            attackButton.SetActive(false);
+        }
     }
 
     public void OnInteract(InputValue input)

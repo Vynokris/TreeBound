@@ -274,7 +274,7 @@ MonoBehaviour:
   maxHealth: 10
   decaySpeed: 0.1
   pullSpeed: 0.4
-  maxPlayerDist: 5
+  maxPlayerDist: 6.5
   healedAreaSize: 1
   damageFeedbackCurve:
     serializedVersion: 2
@@ -300,9 +300,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  transitionAnimator: {fileID: 0}
   healthBar: {fileID: 0}
   defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   transitionMaterial: {fileID: 2100000, guid: 0dc8ace9148cda9429d865336fca4aa9, type: 2}
+  virtualCamera: {fileID: 0}
   evolveDurations:
   - 30
   - 35
