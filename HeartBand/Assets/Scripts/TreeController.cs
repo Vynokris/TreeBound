@@ -35,6 +35,7 @@ public class TreeController : MonoBehaviour
     [SerializeField] private Slider           healthBar;
     [SerializeField] private Material         defaultMaterial;
     [SerializeField] private Material         transitionMaterial;
+    [SerializeField] private GameObject       virtualCamera;
     [SerializeField] private List<float>      evolveDurations;
     [SerializeField] private List<Sprite>     stageSprites;
     [SerializeField] private List<Color>      playerColors;
@@ -73,6 +74,7 @@ public class TreeController : MonoBehaviour
         
         transitionRenderer.enabled = false;
         plantingParticles.Stop();
+        virtualCamera.SetActive(false);
         
         soundsDict = new(sounds.Count);
         foreach (NamedAudioClip clip in sounds) {
@@ -212,6 +214,7 @@ public class TreeController : MonoBehaviour
             audioSource.Stop();
             audioSource.clip = soundsDict["Tree_Rip"];
             audioSource.Play();
+            virtualCamera.SetActive(true);
             break;
         case TreeState.Planted:
             rigidbody.velocity = Vector2.zero;
@@ -219,6 +222,7 @@ public class TreeController : MonoBehaviour
             waveManager.StartWave(WaveType.Enemies);
             plantingParticles.Play();
             evolveTimer = evolveDurations[growingStage];
+            virtualCamera.SetActive(false);
             audioSource.Stop();
             audioSource.clip = soundsDict["Tree_Drop"];
             audioSource.Play();
