@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlantingPoint : MonoBehaviour
 {
@@ -10,20 +11,23 @@ public class PlantingPoint : MonoBehaviour
     [SerializeField] private float          healingAnimDuration = 5;
     [SerializeField] private AnimationCurve healingAnimCurve;
     [SerializeField] private float          slateDistance = 8;
+    [SerializeField] private bool           isFinalPoint = false;
     
     private List<PlantingSlate> slates = new();
     private SpriteMask spriteMask;
     private bool  used;
     private float healingAnimTimer;
+    private TreeController tree;
 
     private void Start()
     {
         spriteMask = transform.GetChild(0).GetComponent<SpriteMask>();
+        tree = FindObjectOfType<TreeController>();
     }
 
     private void Update()
     {
-        if (!WasUsed() || !spriteMask || healingAnimTimer > healingAnimDuration) return;
+        if (!used || !spriteMask || healingAnimTimer > healingAnimDuration) return;
         healingAnimTimer += Time.deltaTime;
         float maskSize = healingAnimCurve.Evaluate(healingAnimTimer / healingAnimDuration) * healingRange;
         spriteMask.transform.localScale = new Vector3(maskSize, maskSize, maskSize);
@@ -63,12 +67,13 @@ public class PlantingPoint : MonoBehaviour
         }
     }
     
-    public bool WasUsed() { return used; }
+    public bool WasUsed() { return (isFinalPoint && tree.GetGrowingStage() < 3) || used; }
     public void SetUsed(bool shouldHeal = true)
     {
         used = true;
         if (!shouldHeal) spriteMask = null;
         slates.ForEach(slate => slate.SetUsed());
+        if (isFinalPoint) SceneManager.LoadScene("Victory");
     }
 
     public bool IsActivated()

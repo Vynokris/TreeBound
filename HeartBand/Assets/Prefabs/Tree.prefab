@@ -275,6 +275,31 @@ MonoBehaviour:
   pullSpeed: 0.4
   maxPlayerDist: 5
   healedAreaSize: 1
+  damageFeedbackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.008333334
+      value: 0.99999994
+      inSlope: -1.999989
+      outSlope: -1.999989
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06302553
+    - serializedVersion: 3
+      time: 1
+      value: 0.9905661
+      inSlope: 2.003775
+      outSlope: 2.003775
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.21008377
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  healthBar: {fileID: 0}
   defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   transitionMaterial: {fileID: 2100000, guid: 0dc8ace9148cda9429d865336fca4aa9, type: 2}
   evolveDurations:
@@ -383,7 +408,7 @@ BoxCollider2D:
   m_Offset: {x: 0.15, y: 0.33}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5000002, y: 0.14650603}
+    pivot: {x: 0.49588966, y: 0.14070739}
     oldSize: {x: 2.881562, y: 3.44}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
