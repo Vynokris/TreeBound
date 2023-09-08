@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7986244662282376557
 Transform:
   m_ObjectHideFlags: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 336745839, guid: 6a772ee6d96a0b64b865e319dbaab2cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &7377775211040528195
 GameObject:
@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3694137865154662003}
   - component: {fileID: 5326887537249259273}
+  - component: {fileID: 8871542608143276406}
   m_Layer: 0
   m_Name: Trunk_A_PF
   m_TagString: Untagged
@@ -247,3 +248,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8103944, y: 0.36749706}
   m_EdgeRadius: 0
+--- !u!210 &8871542608143276406
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824479691407525238}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 1

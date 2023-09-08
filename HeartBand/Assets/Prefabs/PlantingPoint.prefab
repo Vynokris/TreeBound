@@ -201,7 +201,7 @@ Transform:
   - {fileID: 3159954152670105820}
   - {fileID: 7540192702105362714}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3623572192414058757
 MonoBehaviour:
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantingSlatePrefab: {fileID: 6001013539902861931, guid: a4d2653e2bf03c34295e4d0e613b0a40, type: 3}
-  healingRange: 5
+  healingRange: 30
   healingAnimDuration: 5
   healingAnimCurve:
     serializedVersion: 2
