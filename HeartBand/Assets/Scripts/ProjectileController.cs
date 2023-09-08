@@ -35,7 +35,7 @@ public class ProjectileController : MonoBehaviour
         float   orthoSize = cam.orthographicSize;
         Vector2 camExtent = new Vector2(orthoSize, orthoSize * Screen.width / Screen.height);
         float   randAngle = Random.Range(0f, Mathf.PI*2);
-        transform.position = new Vector3(Mathf.Cos(randAngle) * camExtent.x - 2, Mathf.Sin(randAngle) * camExtent.y - 2, 0) + new Vector3(cam.transform.position.x, cam.transform.position.y, 0);
+        transform.position = new Vector3(Mathf.Cos(randAngle) * camExtent.x + 6, Mathf.Sin(randAngle) * camExtent.y - 2, 0) + new Vector3(cam.transform.position.x, cam.transform.position.y, 0);
         
         // Rotate towards the tree.
         Vector2 treeDir = ((Vector2)(tree.transform.position - transform.position)).normalized;
