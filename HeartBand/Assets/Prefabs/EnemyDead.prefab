@@ -97,12 +97,28 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7301479580130008555, guid: 691356e743399754197df3c9b9dab326, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8272428244783389928, guid: 691356e743399754197df3c9b9dab326, type: 3}
       propertyPath: m_Name
       value: EnnemyDeathParticle
       objectReference: {fileID: 0}
     - target: {fileID: 8297879578587136998, guid: 691356e743399754197df3c9b9dab326, type: 3}
       propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297879578587136998, guid: 691356e743399754197df3c9b9dab326, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297879578587136998, guid: 691356e743399754197df3c9b9dab326, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297879578587136998, guid: 691356e743399754197df3c9b9dab326, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
