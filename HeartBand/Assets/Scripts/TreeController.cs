@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public enum TreeState
 {
@@ -22,6 +23,7 @@ public class TreeController : MonoBehaviour
     [SerializeField] private float pullSpeed      = 0.1f;
     [SerializeField] private float maxPlayerDist  = 4;
     [SerializeField] private float healedAreaSize = 5;
+    [SerializeField] private Slider           healthBar;
     [SerializeField] private Material         defaultMaterial;
     [SerializeField] private Material         transitionMaterial;
     [SerializeField] private List<float>      evolveDurations;
@@ -139,7 +141,10 @@ public class TreeController : MonoBehaviour
     private void CheckHealth(bool decay = true)
     {
         // Loose health from decay damage and check for game over.
-        if (decay) health -= decaySpeed * Time.deltaTime;
+        if (decay) {
+            health -= decaySpeed * Time.deltaTime;
+            if (healthBar) healthBar.value = health / maxHealth;
+        }
         if (health < 0) {
             Debug.Log("Tree destroyed!");
             this.enabled = false;
@@ -182,8 +187,8 @@ public class TreeController : MonoBehaviour
     }
 
     public TreeState GetState() { return state; }
-    public void OnDamage(float value) { health -= value; }
-    public void OnHeal  (float value) { health += value; }
+    public void OnDamage(float value) { health -= value; if (healthBar) healthBar.value = health / maxHealth; }
+    public void OnHeal  (float value) { health += value; if (healthBar) healthBar.value = health / maxHealth; }
 
     void OnPlayerJoined(PlayerInput playerInput)
     {
