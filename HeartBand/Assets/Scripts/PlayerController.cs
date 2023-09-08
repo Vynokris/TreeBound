@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int   lineResolution = 10;
     [SerializeField] private float lineLerp       = 30;
 
+    private int     playerIndex;
     private Color   color;
     private int     health       = -1;
     private float   attackTimer  = 0;
@@ -163,6 +164,8 @@ public class PlayerController : MonoBehaviour
         swordTrails.ForEach(trail => trail.SetActive(false));
         sword.SetActive(false);
     }
+    public void  SetPlayerIndex(int newPlayerIndex) { playerIndex = newPlayerIndex; }
+    public int   GetPlayerIndex() { return playerIndex; }
     public void  SetColor(Color newColor) { color = newColor; }
     public Color GetColor() { return color; }
 

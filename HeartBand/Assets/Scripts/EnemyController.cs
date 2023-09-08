@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
         if (Mathf.PI / 3 < randAngle && randAngle < 2 * Mathf.PI / 3) {
             randAngle += Mathf.PI;
         }
-        transform.position = new Vector3(Mathf.Cos(randAngle), Mathf.Sin(randAngle), 0) * (camExtent.x + 4) + new Vector3(cam.transform.position.x, cam.transform.position.y, 0);
+        transform.position = new Vector3(Mathf.Cos(randAngle), Mathf.Sin(randAngle), 0) * (camExtent.x + 6) + new Vector3(cam.transform.position.x, cam.transform.position.y, 0);
     }
 
     void Update()

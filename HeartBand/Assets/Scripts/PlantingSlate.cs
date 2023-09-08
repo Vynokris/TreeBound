@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlantingSlate : MonoBehaviour
 {
+    [SerializeField] private Sprite[] slateSprites;
+    
     private GameObject interactingPlayer = null;
     private new SpriteRenderer renderer;
     private bool used = false;
     
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        renderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
     }
     
     public bool WasUsed() { return used; }
@@ -22,12 +24,12 @@ public class PlantingSlate : MonoBehaviour
     {
         if (used || interactingPlayer) return;
         interactingPlayer = player;
-        renderer.color = interactingPlayer.GetComponent<PlayerController>().GetColor();
+        renderer.sprite = slateSprites[interactingPlayer.GetComponent<PlayerController>().GetPlayerIndex()+1];
     }
 
     public void Deactivate()
     {
-        renderer.color = Color.grey;
+        renderer.sprite = slateSprites[0];
         interactingPlayer = null;
     }
 }

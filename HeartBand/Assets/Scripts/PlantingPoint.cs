@@ -9,6 +9,7 @@ public class PlantingPoint : MonoBehaviour
     [SerializeField] private float          healingRange        = 5;
     [SerializeField] private float          healingAnimDuration = 5;
     [SerializeField] private AnimationCurve healingAnimCurve;
+    [SerializeField] private float          slateDistance = 8;
     
     private List<PlantingSlate> slates = new();
     private SpriteMask spriteMask;
@@ -38,21 +39,26 @@ public class PlantingPoint : MonoBehaviour
         slates.Capacity = playerCount;
         
         // Create new equally spaces slates.
-        float slateUnitAngle = (Mathf.PI*2) / playerCount;
-        float slateAngleOffset = 0;
+        List<Vector3> slateDirs = new(playerCount);
         switch (playerCount)
         {
-            case 1: slateAngleOffset = -Mathf.PI*0.50f; break;
-            case 3: slateAngleOffset = -Mathf.PI*0.33f; break;
-            case 4: slateAngleOffset = -Mathf.PI*0.25f; break;
+            case 1: 
+                slateDirs.Add(Vector3.down);
+                break;
+            case 2:
+                slateDirs.Add((Vector3.down + Vector3.left  * 0.5f).normalized);
+                slateDirs.Add((Vector3.down + Vector3.right * 0.5f).normalized);
+                break;
+            case 3:
+                slateDirs.Add(Vector3.down);
+                slateDirs.Add((Vector3.down + Vector3.left ).normalized * 1.14f);
+                slateDirs.Add((Vector3.down + Vector3.right).normalized * 1.15f);
+                break;
         }
         for (int i = 0; i < playerCount; i++)
         {
             GameObject slate = Instantiate(plantingSlatePrefab, transform);
-            float slatePosAngle = slateUnitAngle * i + slateAngleOffset;
-            float slatePosX = Mathf.Cos(slatePosAngle);
-            float slatePosY = Mathf.Sin(slatePosAngle);
-            slate.transform.position = transform.position + new Vector3(slatePosX, slatePosY, 0) * 2;
+            slate.transform.position = transform.position + slateDirs[i] * slateDistance;
             slates.Add(slate.GetComponent<PlantingSlate>());
         }
     }
