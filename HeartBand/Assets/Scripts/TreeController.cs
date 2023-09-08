@@ -95,27 +95,24 @@ public class TreeController : MonoBehaviour
     {
         if (state != TreeState.Moving) return;
         
+        // Let the players pull the tree.
         Vector2 pullDir = new();
+        foreach (PlayerController player in players)
+        {
+            Vector2 playerToTree = player.transform.position - transform.position;
+            if (playerToTree.magnitude > maxPlayerDist)
+            {
+                playerToTree = playerToTree.normalized * maxPlayerDist;
+                player.transform.position = transform.position + (Vector3)playerToTree;
+            }
+
+            pullDir += playerToTree;
+        }
         // Move towards the planting point.
         if (plantingPoint && !plantingPoint.WasUsed())
         {
             Vector2 treeToPoint = plantingPoint.transform.position - transform.position;
             pullDir = treeToPoint * 2;
-        }
-        // Let the players pull the tree.
-        else
-        {
-            foreach (PlayerController player in players)
-            {
-                Vector2 playerToTree = player.transform.position - transform.position;
-                if (playerToTree.magnitude > maxPlayerDist)
-                {
-                    playerToTree = playerToTree.normalized * maxPlayerDist;
-                    player.transform.position = transform.position + (Vector3)playerToTree;
-                }
-
-                pullDir += playerToTree;
-            }
         }
         rigidbody.velocity = pullDir * pullSpeed;
     }
