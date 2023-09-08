@@ -8,13 +8,17 @@ public class EnemyDeadController : MonoBehaviour
     
     private float timer = 1;
     private Animator animator;
+    private AudioSource audioSource;
     
     void Start()
     {
         animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         dissolveMat = Instantiate(dissolveMat);
         dissolveMat.SetFloat("_Fade", timer);
         DeepCopyMaterial(transform);
+        
+        audioSource.Play();
     }
 
     void Update()

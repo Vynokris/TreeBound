@@ -15,6 +15,12 @@ public enum TreeState
     Waiting,
 }
 
+[Serializable] public struct NamedAudioClip
+{
+    public string name;
+    public AudioClip sound;
+}
+
 public class TreeController : MonoBehaviour
 {
     private readonly List<PlayerController> players = new();
@@ -34,6 +40,7 @@ public class TreeController : MonoBehaviour
     [SerializeField] private List<GameObject> playerSpritePrefabs;
     [SerializeField] private List<GameObject> swordPrefabs;
     [SerializeField] private List<GameObject> shieldPrefabs;
+    [SerializeField] private List<NamedAudioClip> sounds;
     
     private new SpriteRenderer renderer;
     private     SpriteRenderer transitionRenderer;
@@ -42,8 +49,10 @@ public class TreeController : MonoBehaviour
     private     ParticleSystem plantingParticles;
     private     PlantingPoint  plantingPoint = null;
     private     WaveManager    waveManager;
+    private     AudioSource    audioSource;
+    private Dictionary<string, AudioClip> soundsDict;
     private TreeState state           = TreeState.Waiting;
-    private int   growingStage        = 3;
+    private int   growingStage        = 0;
     private float health              = -1;
     private float damageFeedbackTimer = -1;
     private float evolveTimer         = -1;
@@ -57,10 +66,16 @@ public class TreeController : MonoBehaviour
         spriteMask         = transform.GetChild(0).gameObject.GetComponent<SpriteMask>();
         plantingParticles  = transform.GetChild(2).GetChild(0).gameObject.GetComponent<ParticleSystem>();
         waveManager        = FindObjectOfType<WaveManager>();
+        audioSource        = GetComponent<AudioSource>();
         health             = maxHealth;
         
         transitionRenderer.enabled = false;
         plantingParticles.Stop();
+        
+        soundsDict = new(sounds.Count);
+        foreach (NamedAudioClip clip in sounds) {
+            soundsDict.Add(clip.name, clip.sound);
+        }
     }
 
     void Update()
@@ -176,6 +191,9 @@ public class TreeController : MonoBehaviour
             waveManager.StartWave(WaveType.Projectiles);
             plantingPoint.SetUsed(growingStage > 0);
             plantingPoint = null;
+            audioSource.Stop();
+            audioSource.clip = soundsDict["Tree_Rip"];
+            audioSource.Play();
             break;
         case TreeState.Planted:
             rigidbody.velocity = Vector2.zero;
@@ -183,6 +201,9 @@ public class TreeController : MonoBehaviour
             waveManager.StartWave(WaveType.Enemies);
             plantingParticles.Play();
             evolveTimer = evolveDurations[growingStage];
+            audioSource.Stop();
+            audioSource.clip = soundsDict["Tree_Drop"];
+            audioSource.Play();
             break;
         case TreeState.Waiting:
             rigidbody.velocity = Vector2.zero;
@@ -197,6 +218,9 @@ public class TreeController : MonoBehaviour
             evolveTimer = -1;
             transitionTimer = 1;
             health = maxHealth;
+            audioSource.Stop();
+            audioSource.clip = soundsDict["Tree_Grow"];
+            audioSource.Play();
             break;
         }
     }
@@ -207,11 +231,17 @@ public class TreeController : MonoBehaviour
     public void OnHeal  (float value) { health += value; if (healthBar) healthBar.value = health / maxHealth; }
     public void OnDamage(float value)
     {
-        health -= value; 
+        health -= value;
         if (healthBar) healthBar.value = health / maxHealth; 
         damageFeedbackTimer = 1;
         renderer.material   = transitionMaterial;
         renderer.material.SetFloat("_Fade", 0);
+        if (!audioSource.isPlaying || audioSource.clip == soundsDict["Tree_Hit"])
+        {
+            audioSource.Stop();
+            audioSource.clip = soundsDict["Tree_Hit"];
+            audioSource.Play();
+        }
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
