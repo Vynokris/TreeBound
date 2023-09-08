@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireBallContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 8002478632746804860, guid: b34620d9b5e2eed44b39e71b08369f54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
